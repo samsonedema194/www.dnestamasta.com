@@ -1,0 +1,1290 @@
+/* ==========================================================================
+   1. GEIST SANS FONTS INSTALLATION
+   ========================================================================== */
+@font-face {
+    font-family: 'Geist';
+    src: url('../Assets/Fonts/Geist-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../Assets/Fonts/Geist-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../Assets/Fonts/Geist-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../Assets/Fonts/Geist-Semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../Assets/Fonts/Geist-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../Assets/Fonts/Geist-Extrabold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('../Assets/Fonts/Geist-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+/* ==========================================================================
+   2. DESIGN TOKENS (EXCLUSIVELY 1440PX DESKTOP SPECIFICATIONS)
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --clr-teal-bg: #154244;
+    --clr-mint-accent: #66DCA1;
+    --clr-text-white: #FFFFFF;
+    --clr-dark-heading: #000000;
+    --clr-dark-meta: #111111;
+    --clr-mint-green: #E6EFEE;
+    --clr-mint-deepgreen:#BCD2D3;
+    
+    /* Typography Family */
+    --font-family-base: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ==========================================================================
+   3. GLOBAL MASTER RESET & GROUND RULES
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: #FFFFFF;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-family-base);
+    background-color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+
+    /* 🛠️ ADD THIS LINE */
+    padding-top: 104px;    /* Matches the exact desktop height of your header */
+}
+
+/* ==========================================================================
+   4. LOCKED LAYOUT CONTAINER SPECIFICATIONS (1440px Canvas / 1200px Content)
+   ========================================================================== */
+.site-container {
+    width: 1440px;
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 120px; /* Precise Right Alignment Guideline */
+    padding-left: 120px;  /* Precise Left Alignment Guideline */
+}
+
+/* ==========================================================================
+   5. SITE HEADER COMPONENT (DESKTOP)
+   ========================================================================== */
+.site-header {
+    background-color: var(--clr-teal-bg);
+    width: 100%;
+    height: 112px; /* Fixed premium desktop rhythm height */
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--clr-text-white);
+}
+
+.logo-mark {
+    width: auto;
+    height: 37px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* Horizontal Link Matrix */
+.nav-links-list {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+}
+
+.nav-anchor {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--clr-text-white);
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.25s ease;
+}
+
+.nav-anchor:hover,
+.active-anchor {
+    opacity: 1;
+    color: var(--clr-mint-accent);
+}
+
+/* Brand Button Structure */
+.btn-primary-cta {
+    background-color: var(--clr-mint-accent);
+    color: var(--clr-dark-meta);
+    text-decoration: none;
+    padding: 11px 26px;
+    border-radius: 0px;
+    font-weight: 650;
+    font-size: 20px;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(94, 226, 163, 0.2);
+}
+
+/* ==========================================================================
+   6. HERO VIEWPORT COMPONENT (DESKTOP)
+   ========================================================================== */
+.hero-viewport-section {
+    background-color: #FFFFFF;
+    padding-top: 99px;
+    padding-bottom: 99px;
+}
+
+.hero-inner-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Split Typography Controls */
+.hero-master-headline {
+    color: var(--clr-dark-heading);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    text-align: center;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+}
+
+.headline-row-top {
+    display: block;
+}
+
+.headline-row-bottom {
+    display: block;
+}
+
+/* Precise Image Framing Framework */
+.hero-asset-frame {
+    position: relative;
+    width: 100%; /* Fully spans the 1200px internal grid container bounds */
+    height:548px;
+}
+
+.hero-main-display {
+    
+    width: 100%;
+    height: 548px;        /* 🛠️ Change this number to your exact desired design height */
+    object-fit: cover;    /* 🌟 CRUCIAL: This prevents the image from looking squished */
+    object-position: center; /* Optional: Adjusts the vertical crop focus so heads aren't cut off */
+    border-radius: 20px;
+    display: block;
+    object-position: center 70%;
+}
+
+/* .:hover .team-portrait-img {
+    transform: scale(1.04);
+} */
+
+
+/* Absolute Center Overlay Positioning Grid */
+.metric-accent-badge {
+    position: absolute;
+    bottom: -48px; /* Perfectly bisects the layout bottom border edge */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--clr-mint-accent);
+    padding: 28px 45px;
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.metric-num {
+    font-size: 56px;
+    font-weight: 900;
+    color:#FFFFFF;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.metric-label-block {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: var(--clr-dark-meta);
+    line-height: 1.15;
+}
+
+.label-meta-top {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.label-meta-bold {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   7. ABOUT SECTION COMPONENT (DESKTOP SPECIFIC - 1440PX SYSTEM)
+   ========================================================================== */
+.about-viewport-section {
+    background-color: #FFFFFF;
+    padding-top: 99px;
+    padding-bottom: 99px;
+}
+
+/* Header Context Alignment */
+.about-section-header {
+    text-align: center;
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-main-title {
+    color: var(--clr-dark-heading);
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.about-header-lead {
+    color: #666666;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 980px; /* Constrains line length for maximum reading comfort */
+}
+
+/* Bento Grid System Framework */
+.about-bento-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;/* Exact scale distribution between card and summary deck */
+    gap: 22px; /* Grid spatial rhythm */
+    align-items: start;
+    width: 1200px;
+    height: 347px;
+}
+
+/* Left Card Component */
+.concept-feature-card {
+    background-color: var(--clr-mint-green); /* Soft tint backdrop panel matching your design */
+    border-radius: 0px;
+    padding: 25px;
+    padding-top:2px;
+    padding-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    min-height: 347px;
+}
+
+.concept-image-frame {
+ 
+    width: 311px;
+    height: 297px;
+    overflow: hidden;
+    background: transparent;
+
+    
+}
+
+.concept-display-img {
+    width: 311px;
+    height: 297px;
+    object-fit: co;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.concept-feature-card:hover .concept-display-img {
+    transform: scale(1.04);
+}
+
+
+.concept-content-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.concept-card-title {
+    color: var(--clr-dark-heading);
+    font-size: 20px;
+    font-weight: 650;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 17px;
+    margin-top: -9px;
+    display: flex;
+    flex-direction: column;
+}
+
+.concept-card-body {
+    color: #000000;
+    font-size: 20px;
+    line-height: auto;
+    font-weight: 400;
+    margin-bottom: 52px;
+}
+
+/* Internal Card Action Link */
+.btn-secondary-cta {
+    background-color: var(--clr-teal-bg);
+    color: var(--clr-text-white);
+    text-decoration: none;
+    padding: 11px 22px;
+    height: 48px;
+    border-radius: 0px;
+    font-weight: 650;
+    font-size: 20px;
+    align-self: flex-start; /* Ensures button width snaps tightly to text length */
+    transition: background-color 0.2s ease;
+}
+
+.btn-secondary-cta:hover {
+    background-color: #0d2f2f;
+}
+
+/* Right Panel Metric Grid Assembly */
+.metrics-grid-aside {
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 22px 22px; /* 24px Vertical Spacing, 40px Horizontal Spacing */
+    width: 533px;
+    height: 347px;
+}
+
+/* Individual Metric Cards */
+.metric-data-card {
+    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    border-radius: 0px;
+    padding-top: 6px;
+    padding-bottom: 16px ;
+    padding-left: 21px ;
+    padding-right: 137px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* min-height: 165px; */
+}
+
+.metric-data-card-1 {
+    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    border-radius: 0px;
+    padding-top: 26px;
+    padding-bottom: 26px ;
+    padding-left: 21px ;
+    padding-right: 111px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* min-height: 178px; */
+}
+
+.metric-data-card-2 {
+    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    border-radius: 0px;
+    padding-top: 26px;
+    padding-bottom: 26px ;
+    padding-left: 21px ;
+    padding-right: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* min-height: 178px; */
+}
+
+.metric-data-card-3 {
+    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    border-radius: 0px;
+    padding-top: 26px;
+    padding-bottom: 26px ;
+    padding-left: 21px ;
+    padding-right: 58px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* min-height: 178px; */
+}
+.metric-num-display {
+    color: var(--clr-teal-bg);
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.metric-label-display {
+    color: #222222;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   8. FOUNDATION SECTION COMPONENT (DESKTOP SPECIFIC - 1440PX SYSTEM)
+   ========================================================================== */
+.foundation-viewport-section {
+    background-color: #EBF1F1; /* Soft tint backdrop canvas spanning the full screen width */
+    padding-top: 99px;
+    padding-bottom: 99px;
+}
+
+/* Header Text Alignment Matrix */
+.foundation-section-header {
+    text-align: center;
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.foundation-main-title {
+    color: var(--clr-dark-heading);
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.foundation-header-lead {
+    color: #666666;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 780px; /* Precise layout line width configuration */
+}
+
+/* Column Row Layout Stack */
+.foundation-rows-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px; /* Uniform spatial rhythm between cards */
+    width: 100%;
+    
+}
+
+/* Individual Content Row Grid Panels */
+.foundation-row-card {
+    background-color: #FFFFFF; /* Crisp white interior panel surfaces */
+    border-radius: 0px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 412px 1fr; /* Precise alignment distribution ratio */
+    min-height: 240px;
+    width: 100%; /* Spans full width inside the 1200px constraint layer */
+}
+
+/* Asset Container Frame */
+.foundation-image-block {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.foundation-row-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.foundation-row-card:hover .foundation-row-img {
+    transform: scale(1.04);
+}
+
+/* Content Frame Layout Details */
+.foundation-content-block {
+    padding: 48px 56px; /* Generous text margins matching your desktop design aspect ratio */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.foundation-card-title {
+    color: var(--clr-dark-heading);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+}
+
+.foundation-card-body {
+    color: var(--clr-dark-heading);
+    font-size: 24px;
+    line-height: 1.6;
+    font-weight: 400;
+    max-width: 640px;
+}
+
+/* Values Custom Typography Rules */
+.values-detailed-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.values-detailed-list li {
+    color: var(--clr-dark-heading);
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.values-detailed-list li strong {
+    color: var(--clr-dark-heading);
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   9. SERVICES SECTION COMPONENT (REALIGNED BACKGROUND & PERFECT SQUARES)
+   ========================================================================== */
+.services-viewport-section {
+    background-color: #FFFFFF; /* Main background starts out clean white */
+    padding-top: 99px;
+    padding-bottom: 99px;
+}
+
+/* Header stays cleanly on top of the white background */
+.services-section-header {
+    text-align: center;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.services-main-title {
+    color: var(--clr-dark-heading);
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.services-header-lead {
+    color: #666666;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 820px;
+}
+
+/* 🛠️ BACKGROUND COLOR TRAY: Kicks in immediately after the description text */
+.services-color-tray {
+    background-color: var(--clr-mint-deepgreen); /* deep tint backdrop color begins here */
+    width: 100%;
+    padding-top:99px;
+    padding-bottom:99px;
+}
+
+/* 4-Column Grid mapping within the 1200px box framework */
+.services-desktop-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px; 
+    align-items: start;
+    width: 100%;
+}
+
+/* 🛠️ THE PERFECT SQUARE CUSTOM CARD ASYMMETRY */
+.service-custom-card {
+    background-color: #FFFFFF;
+    width: 100%;
+    
+    /* 1:1 Aspect Ratio forces height to track width exactly, creating a square */
+    aspect-ratio: 1 / 1; 
+    
+    /* Architectural Clipped Corner System */
+    clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
+    
+    padding: 40px 28px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 🛠️ SCRIPT INTERACTION OVERRIDE: When text expands, we break the square aspect ratio 
+   safely so the card expands vertically without cutting text or warping corners */
+.service-custom-card.is-expanded-card {
+    aspect-ratio: auto;
+}
+
+.service-custom-card:hover {
+    transform: translateY(-8px);
+}
+
+.service-card-inner-wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between; /* Pins icons up top and "Read more" buttons along the base line */
+}
+
+/* Inner Layout Elements */
+.service-icon-box {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.service-vector {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+
+.service-card-title {
+    color: var(--clr-dark-heading);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+}
+
+/* Base Text Container State */
+.service-expand-wrapper {
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 48px; /* Shows only the absolute teaser summary line to save card height space */
+    margin-bottom: 16px;
+}
+
+.service-card-body-text {
+    color: #444444;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.btn-service-toggle {
+    background: none;
+    border: none;
+    color: #444444;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    align-self: flex-start;
+    padding: 0;
+    margin-top: auto; /* Keeps the toggle link resting evenly at the bottom edge */
+}
+
+/* ==========================================================================
+   10. MEET THE TEAM SECTION (DESKTOP SYSTEM - 1440PX CANVAS)
+   ========================================================================== */
+.team-viewport-section {
+    background-color: #FFFFFF; /* Matches upper section breaks */
+    padding-top: 99px;
+    padding-bottom: 99px;
+}
+
+.team-section-header {
+    text-align: center;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-main-title {
+    color: var(--clr-dark-heading);
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.team-header-lead {
+    color: #666666;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 950px;
+}
+
+/* 🛠️ COLOR TRAY TINT: Anchors background right after text block */
+.team-color-tray {
+    background-color: var(--clr-mint-deepgreen);
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+
+/* 3-Column Layout structure within your standard 1200px block wrapper */
+.team-desktop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px 117px; /* 64px vertical row distance, 40px horizontal column gap */
+    width: 100%;
+}
+
+/* Individual Team Member Component Cards */
+.team-profile-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🛠️ ARCHITECTURAL CLIPPED IMAGING PROFILE FRAME */
+.team-image-frame {
+    width: 100%;
+    /* aspect-ratio: 322/ 309;  */
+    /* Maintains the exact design aspect ratio */
+    
+    overflow: hidden;
+    margin-bottom: 24px;
+    margin-left: -20px;
+    background: transparent; /* No background color needed so your PNGs sit clean */
+}
+
+.team-portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 🛠️ Changed to contain so your pre-masked edges don't get cropped */
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+/* Subtle Hover Interactive Depth Indicator */
+.team-profile-card:hover .team-portrait-img {
+    transform: scale(1.04);
+}
+
+/* Text Content Details */
+.team-meta-details {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+    margin-left: -19px;
+    
+    /* 🛠️ ACCENT LINE BAR: Generates the bottom border indicator lines underneath data blocks */
+    border-bottom: 1.1px solid #000000; 
+    
+}
+
+.team-member-name {
+    color: var(--clr-dark-heading);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+.team-member-role {
+    color: #555555;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   11. PROJECTS SECTION COMPONENT (DESKTOP SYSTEM - 1440PX CANVAS)
+   ========================================================================== */
+.projects-viewport-section {
+    background-color: #FFFFFF;
+    padding-top: 99px;
+    padding-bottom: 99px;
+}
+
+.projects-section-header {
+    text-align: center;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projects-main-title {
+    color: var(--clr-dark-heading);
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.projects-header-lead {
+    color: #666666;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 820px;
+}
+
+/* Color Tray Setup */
+.projects-color-tray {
+    background-color: #BCD2D3;
+    width: 100%;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+/* Outer layout containing buttons alongside the grid box */
+.slider-outer-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Ensures it fills up the 1200px content space */
+    
+}
+
+/* 🛠️ THE WINDOW CONTAINER (The viewport mask) */
+.projects-slider-window {
+    width: 100%;      /* Pins the mask to exactly the width of the 1200px container */
+    overflow: hidden; /* Cuts off any cards that slide past the right edge */
+}
+
+/* 🛠️ THE SLIDER TRACK TRAIN */
+.projects-slider-track {
+    display: grid;
+    grid-auto-flow: column;
+    /* Forces exactly 2 cards wide per pane, factoring in the 32px gap */
+    grid-auto-columns: calc(600px - 16px); 
+    gap: 32px;
+    
+    /* Permits the track train to expand past 100% boundary limit without squeezing */
+    width: max-content; 
+    
+    /* Fluid CSS animation movement curve */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+/* Individual Content Display Cards */
+.project-display-card {
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 240px 1fr; /* Image left, copy content right */
+    gap: 28px;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    width: 603.56px;
+    
+}
+
+/* 🛠️ ARCHITECTURAL PRE-MASK IMAGE CARDS */
+.project-image-frame {
+    width: 318px;
+    height: 303px;
+    overflow: hidden;
+    background: transparent;
+
+    
+    
+  
+}
+
+.project-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.project-display-card:hover .project-card-img {
+    transform: scale(1.04);
+}
+
+
+/* Copy Content Rules */
+.project-info-block {
+    display: flex;
+    flex-direction: column;
+    margin-left: 75px;
+}
+
+.project-tag {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 18px;
+}
+
+.project-card-title {
+    color: #0F2D2D; /* Deep corporate teal dark token */
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 30px;
+    letter-spacing: -0.01em;
+}
+
+.project-card-body {
+    color: #000000;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Meta Data Context Rows (Location, Date) */
+.project-meta-data {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 35px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #154244;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.meta-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: #154244;
+}
+
+/* Action View Link Trigger */
+.btn-project-link {
+    background-color: #154244;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    height: 43px;
+    width: 144px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 18px;
+    border-radius: 0px;
+    align-self: flex-start;
+    transition: background-color 0.2s ease;
+}
+
+.btn-project-link:hover {
+    background-color: #1a4d4d;
+}
+
+/* SLIDER NAVIGATION BUTTONS */
+.slider-nav-btn {
+    position: absolute;
+    width:50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #154244;
+    color: #FFFFFF;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.slider-nav-btn:hover {
+    background-color: #1a4d4d;
+}
+
+/* Positioning buttons slightly outside / nested on row edge borders */
+.prev-btn {
+    left: 34px;
+}
+
+.next-btn {
+    right: 34px;
+}
+
+/* Disabled State formatting */
+.slider-nav-btn:disabled {
+    background-color: #154244;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ==========================================================================
+   12. FREQUENTLY ASKED QUESTIONS COMPONENT (DESKTOP SPECIFIC - 1440PX RES)
+   ========================================================================== */
+.faq-viewport-section {
+    background-color: #FFFFFF;
+    padding-top: 100px;
+    padding-bottom: 0;
+}
+
+.faq-section-header {
+    text-align: center;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.faq-main-title {
+    color: var(--clr-dark-heading);
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.faq-header-lead {
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 820px;
+}
+
+/* Background Tray Grid Area Wrapper */
+.faq-color-tray {
+    background-color: #BCD2D3;
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+
+/* Asymmetric Grid: Left holds 1.4x scale relative to standard sidebar dimensions */
+.faq-dual-layout {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Left Accordion Stack Framework */
+.faq-accordion-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.faq-accordion-item {
+    background-color: #FFFFFF;
+    border-radius: 0px; /* Locked down straight design aesthetics */
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+}
+
+/* Interactive Top Bar */
+.faq-trigger-bar {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+}
+
+.faq-question-text {
+    color: var(--clr-dark-heading);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    padding-right: 24px;
+}
+
+/* Pure CSS Plus (+) / Minus (-) Indicator System */
+.faq-status-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.faq-status-icon::before,
+.faq-status-icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--clr-dark-heading);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Horizontal segment */
+.faq-status-icon::before {
+    top: 8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+/* Vertical segment */
+.faq-status-icon::after {
+    top: 0;
+    left: 8px;
+    width: 2px;
+    height: 100%;
+}
+
+/* Active Transformations: Rotate vertical bar away to form smooth minus sign */
+.faq-accordion-item.is-active .faq-status-icon::after {
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+.faq-accordion-item.is-active .faq-status-icon::before {
+    transform: rotate(180deg);
+}
+
+/* Slide Expansion Panel Window */
+.faq-panel-expand {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.faq-panel-content {
+    padding: 0 32px 28px 32px;
+}
+
+.faq-panel-content p {
+    color: #444444;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Right Billboard Card Styling Layout */
+.faq-billboard-aside {
+    width: 100%;
+}
+
+.faq-billboard-card {
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    padding: 48px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+}
+
+.faq-billboard-icon-wrapper {
+    color: #0F2D2D; /* Matches corporate premium deep teal look */
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+}
+
+.faq-chat-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.faq-billboard-title {
+    color: var(--clr-dark-heading);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+}
+
+.faq-billboard-text {
+    color: #444444;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 320px;
+}
+
+/* High Contrast CTA Interface Trigger Button */
+.btn-faq-billboard-cta {
+    background-color: #0F2D2D;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 16px 28px;
+    width: 100%; /* Spans across card boundary layout framework */
+    border-radius: 4px;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.btn-faq-billboard-cta:hover {
+    background-color: #1a4d4d;
+}
