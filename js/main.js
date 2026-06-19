@@ -239,36 +239,32 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================================================
     // 4. FAQ SECTION: INTERACTIVE ACCORDION EXPANSION ENGINE
     // ==========================================================================
-    const faqItems = document.querySelectorAll('.faq-accordion-item');
+    document.addEventListener('DOMContentLoaded', () => {
+    const accordionTriggers = document.querySelectorAll('.faq-trigger-bar');
 
-    faqItems.forEach(item => {
-        const trigger = item.querySelector('.faq-trigger-bar');
-        const panel = item.querySelector('.faq-panel-expand');
+    accordionTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const currentItem = trigger.closest('.faq-accordion-item');
+            const currentPanel = currentItem.querySelector('.faq-panel-expand');
+            const isActive = currentItem.classList.contains('is-active');
 
-        if (trigger && panel) {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isActive = item.classList.contains('is-active');
-
-                // Close all other active FAQ containers to keep presentation pristine
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('is-active')) {
-                        otherItem.classList.remove('is-active');
-                        otherItem.querySelector('.faq-trigger-bar').setAttribute('aria-expanded', 'false');
-                        otherItem.querySelector('.faq-panel-expand').style.maxHeight = '0px';
-                    }
-                });
-
-                // Toggle state on the targeted item block
-                if (!isActive) {
-                    item.classList.add('is-active');
-                    trigger.setAttribute('aria-expanded', 'true');
-                    panel.style.maxHeight = panel.scrollHeight + 'px';
-                } else {
+            // 1. Close all other open accordion items safely
+            document.querySelectorAll('.faq-accordion-item').forEach(item => {
+                if (item !== currentItem) {
                     item.classList.remove('is-active');
-                    trigger.setAttribute('aria-expanded', 'false');
-                    panel.style.maxHeight = '0px';
+                    item.querySelector('.faq-panel-expand').style.maxHeight = null;
                 }
             });
-        }
+
+            // 2. Toggle the targeted item
+            if (isActive) {
+                currentItem.classList.remove('is-active');
+                currentPanel.style.maxHeight = null;
+            } else {
+                currentItem.classList.add('is-active');
+                // Dynamically sets the perfect height including padding
+                currentPanel.style.maxHeight = currentPanel.scrollHeight + "px";
+            }
+        });
     });
+});

@@ -238,6 +238,8 @@ body {
     position: relative;
     width: 100%; /* Fully spans the 1200px internal grid container bounds */
     height:548px;
+    overflow: hidden;
+    border-radius: 20px;
 }
 
 .hero-main-display {
@@ -249,27 +251,35 @@ body {
     border-radius: 20px;
     display: block;
     object-position: center 70%;
+    transition: transform 0.4s ease;
 }
 
-/* .:hover .team-portrait-img {
+.hero-asset-frame:hover .hero-main-display {
     transform: scale(1.04);
-} */
+}
 
 
 /* Absolute Center Overlay Positioning Grid */
 .metric-accent-badge {
-    position: absolute;
+    /* position: center;
     bottom: -48px; /* Perfectly bisects the layout bottom border edge */
-    left: 50%;
+    left: 50%; 
+    right: 50%;
     transform: translateX(-50%);
     background-color: var(--clr-mint-accent);
     padding: 28px 45px;
+    margin-right: 372px;
+    margin-left: 844px;
+    margin-top: -62px;
     border-radius: 0px;
     display: flex;
     align-items: center;
     gap: 16px;
     box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.08);
+    z-index: 500;
 }
+
+
 
 .metric-num {
     font-size: 56px;
@@ -1042,7 +1052,7 @@ body {
 }
 
 .btn-project-link:hover {
-    background-color: #1a4d4d;
+    background-color: #66DCA1;
 }
 
 /* SLIDER NAVIGATION BUTTONS */
@@ -1063,7 +1073,7 @@ body {
 }
 
 .slider-nav-btn:hover {
-    background-color: #1a4d4d;
+    background-color: #66DCA1;
 }
 
 /* Positioning buttons slightly outside / nested on row edge borders */
@@ -1087,8 +1097,8 @@ body {
    ========================================================================== */
 .faq-viewport-section {
     background-color: #FFFFFF;
-    padding-top: 100px;
-    padding-bottom: 0;
+    padding-top: 99px;
+    padding-bottom: 99px;
 }
 
 .faq-section-header {
@@ -1101,7 +1111,7 @@ body {
 
 .faq-main-title {
     color: var(--clr-dark-heading);
-    font-size: 48px;
+    font-size: 50px;
     font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: 16px;
@@ -1109,10 +1119,10 @@ body {
 
 .faq-header-lead {
     color: #666666;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 400;
     line-height: 1.5;
-    max-width: 820px;
+    max-width: 1220px;
 }
 
 /* Background Tray Grid Area Wrapper */
@@ -1127,7 +1137,7 @@ body {
 .faq-dual-layout {
     display: grid;
     grid-template-columns: 1.45fr 1fr;
-    gap: 40px;
+    gap: 81px;
     align-items: start;
 }
 
@@ -1135,8 +1145,11 @@ body {
 .faq-accordion-stack {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+    width: 712px;
 }
+
+
 
 .faq-accordion-item {
     background-color: #FFFFFF;
@@ -1147,11 +1160,12 @@ body {
 
 /* Interactive Top Bar */
 .faq-trigger-bar {
-    width: 100%;
+    width: 95%;
     background: transparent;
     border: none;
     outline: none;
-    padding: 24px 32px;
+    padding: 32px 32px;
+    margin-left: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1161,7 +1175,7 @@ body {
 
 .faq-question-text {
     color: var(--clr-dark-heading);
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.01em;
     padding-right: 24px;
@@ -1173,6 +1187,7 @@ body {
     width: 18px;
     height: 18px;
     flex-shrink: 0;
+
 }
 
 .faq-status-icon::before,
@@ -1185,17 +1200,17 @@ body {
 
 /* Horizontal segment */
 .faq-status-icon::before {
-    top: 8px;
+    top: 7px;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: 3px;
 }
 
 /* Vertical segment */
 .faq-status-icon::after {
     top: 0;
-    left: 8px;
-    width: 2px;
+    left: 7px;
+    width: 3px;
     height: 100%;
 }
 
@@ -1207,6 +1222,37 @@ body {
 
 .faq-accordion-item.is-active .faq-status-icon::before {
     transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   ADDITIONS: FAQ HOVER INTERACTIONS
+   ========================================================================== */
+
+/* 1. Lift the card up smoothly and add a subtle premium shadow on hover */
+.faq-accordion-item {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.faq-accordion-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(21, 66, 68, 0.08); /* Sophisticated deep teal shadow tint */
+    border-color: rgba(21, 66, 68, 0.15);
+}
+
+/* 2. Transition the question text color when hovered or when active */
+.faq-accordion-item:hover .faq-question-text,
+.faq-accordion-item.is-active .faq-question-text {
+    color: var(--clr-teal-bg);
+}
+
+/* 3. Turn the plus/minus icon into a bright mint green color on hover */
+.faq-accordion-item:hover .faq-status-icon::before,
+.faq-accordion-item:hover .faq-status-icon::after,
+.faq-accordion-item.is-active .faq-status-icon::before {
+    background-color: #49b37e; /* High-contrast version of your brand mint */
 }
 
 /* Slide Expansion Panel Window */
@@ -1243,15 +1289,18 @@ body {
 }
 
 .faq-billboard-icon-wrapper {
-    color: #0F2D2D; /* Matches corporate premium deep teal look */
     width: 48px;
     height: 48px;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.faq-chat-icon {
+.faq-chat-custom-icon {
     width: 100%;
     height: 100%;
+    object-fit: contain; /* Prevents stretching and preserves design dimensions */
 }
 
 .faq-billboard-title {
@@ -1265,26 +1314,198 @@ body {
 
 .faq-billboard-text {
     color: #444444;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 20px;
+    line-height: 1.28;
     margin-bottom: 32px;
     max-width: 320px;
 }
 
 /* High Contrast CTA Interface Trigger Button */
 .btn-faq-billboard-cta {
-    background-color: #0F2D2D;
+    background-color: #154244;
     color: #FFFFFF;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 700;
-    padding: 16px 28px;
+    padding: 20px 20px;
+    
     width: 100%; /* Spans across card boundary layout framework */
-    border-radius: 4px;
+    border-radius: 0px;
     display: inline-block;
     transition: background-color 0.2s ease;
 }
 
 .btn-faq-billboard-cta:hover {
-    background-color: #1a4d4d;
+    background-color: #0F2D2D;
+}
+
+/* ==========================================================================
+   13. FINAL CALL TO ACTION BANNER (DESKTOP SPECIFIC)
+   ========================================================================== */
+.cta-banner-section {
+    background-color: #FFFFFF;
+    padding-top:0px;
+    padding-bottom: 99px;
+    width: 100%;
+}
+
+/* Rounded grid tray container holding the brand gradient matrix */
+.cta-gradient-card {
+    width: 100%;
+    /* Gradient moving seamlessly from mint to signature deep corporate teal */
+    background: linear-gradient(90deg, #5EE2A3 0%, var(--clr-teal-bg) 100%);
+    border-radius: 0px; /* Kept locked to crisp geometric design rhythm */
+    padding: 80px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(21, 66, 68, 0.05);
+}
+
+/* Centered layout alignment */
+.cta-content-wrapper {
+    max-width: 780px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cta-master-title {
+    color: var(--clr-text-white);
+    font-size: 40px;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.cta-description-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    font-weight: 550;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 1200px;
+}
+
+/* High contrast white action container button */
+.btn-banner-mail-cta {
+    background-color: #FFFFFF;
+    color: var(--clr-teal-bg);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em; /* Cleaner tracking for uppercase presentation */
+    padding: 16px 40px;
+    border-radius: 0px; /* Perfect match for your primary buttons style setup */
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Subtle sleek hover depth feedback */
+.btn-banner-mail-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    background-color: #F9FBFB;
+}
+
+.btn-banner-mail-cta:active {
+    transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   14. SITE FOOTER COMPONENT
+   ========================================================================== */
+.site-footer-wrapper {
+    background-color: var(--clr-teal-bg); /* Deep corporate teal background */
+    padding-top: 100px;
+    padding-bottom: 60px;
+    width: 100%;
+}
+
+/* 4-Column asymmetric metadata structure */
+.footer-meta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr 1.1fr;
+    gap: 32px;
+    align-items: start;
+    margin-bottom: 70px;
+}
+
+.footer-grid-col p {
+    color: var(--clr-text-white);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Specific text alignment override for the physical address column */
+.col-address p {
+    text-align: right;
+}
+
+/* Inline horizontal links configuration */
+.footer-inline-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 16px;
+}
+
+.footer-inline-links a,
+.footer-interactive-link {
+    color: var(--clr-text-white);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    transition: opacity 0.2s ease;
+}
+
+.footer-inline-links a:hover,
+.footer-interactive-link:hover {
+    opacity: 0.75;
+}
+
+/* Clean architectural horizontal rule */
+.footer-structural-divider {
+    border: none;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.4); /* Structured semi-transparent separator */
+    margin: 0 0 50px 0;
+    width: 100%;
+}
+
+/* Master branding structural anchor alignment */
+.footer-branding-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Locks logo alignment down to the bottom baseline */
+    width: 100%;
+}
+
+.footer-brand-anchor {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.footer-brand-logo-img {
+    height: 48px; /* Perfectly matches the layout scale */
+    width: auto;
+    display: block;
+}
+
+/* Brand Tagline Display Styles */
+.footer-tagline-text {
+    color: #5EE2A3; /* Bright brand mint text accent color */
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1;
 }
