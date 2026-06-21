@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 galleryGrid.appendChild(card);
             });
 
-            // Lock out button once full database payload is structuralized
+            // Lock out button once full database payload is structured
             loadMoreBtn.textContent = "All Projects Loaded";
             loadMoreBtn.disabled = true;
             loadMoreBtn.classList.add("is-inactive");

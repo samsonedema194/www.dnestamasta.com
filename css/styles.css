@@ -1438,7 +1438,7 @@ body {
     width: 100%;
     /* Gradient moving seamlessly from mint to signature deep corporate teal */
     background: linear-gradient(90deg, #5EE2A3 0%, var(--clr-teal-bg) 100%);
-    border-radius: 0px; /* Kept locked to crisp geometric design rhythm */
+    border-radius: 0px; 
     padding: 80px 40px;
     display: flex;
     justify-content: center;
