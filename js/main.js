@@ -1,3 +1,62 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const navAnchors = document.querySelectorAll(".nav-anchor");
+    
+    // Get the current URL from the address bar
+    const currentUrl = window.location.href;
+
+    // 🎯 STEP 1: Strict Check for the Subpage using a RegEx search
+    if (/project-1\.html/i.test(currentUrl)) {
+        
+        // Force ONLY the Projects link to be active and green on this page
+        navAnchors.forEach((anchor) => {
+            const anchorHref = anchor.getAttribute("href");
+            
+            // If the nav link points to project-1.html or ends with #projects, light it up green
+            if (/project-1\.html/i.test(anchorHref) || anchorHref.endsWith("#projects")) {
+                anchor.classList.add("active-anchor");
+            } else {
+                anchor.classList.remove("active-anchor");
+            }
+        });
+
+    } else {
+        // 🎯 STEP 2: If they are on index.html, run the scroll-tracking logic
+        const sections = document.querySelectorAll("section[id], header[id]");
+
+        const observerOptions = {
+            root: null, 
+            rootMargin: "-30% 0px -60% 0px" 
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    let currentSectionId = entry.target.getAttribute("id");
+
+                    // Keep your Foundation section linked to About
+                    if (currentSectionId === "foundation") {
+                        currentSectionId = "about";
+                    }
+
+                    navAnchors.forEach((anchor) => {
+                        const anchorHref = anchor.getAttribute("href");
+
+                        if (anchorHref.endsWith(`#${currentSectionId}`)) {
+                            anchor.classList.add("active-anchor");
+                        } else {
+                            anchor.classList.remove("active-anchor");
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach((section) => {
+            sectionObserver.observe(section);
+        });
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const metricNumbers = document.querySelectorAll('.metric-num-display');
     const animationDuration = 1300; // 🛠️ Total duration of the counting effect in milliseconds (2 seconds)
@@ -267,4 +326,43 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loadMoreBtn = document.getElementById("btn-load-more");
+    const galleryGrid = document.getElementById("project-gallery-grid");
+
+    // Exact data mapping payload from the remaining blocks in Project 1.jpg
+    const pageTwoImages = [
+    "Assets/Images/b10.jpg",
+    "Assets/Images/b11.jpg",
+    "Assets/Images/b12.jpg",
+    "Assets/Images/b13.jpg",
+    "Assets/Images/b14.jpg",
+    "Assets/Images/b15.jpg",
+    "Assets/Images/b16.jpg",
+    "Assets/Images/b17.jpg",
+    "Assets/Images/b18.jpg"
+];
+    if (loadMoreBtn && galleryGrid) {
+        loadMoreBtn.addEventListener("click", () => {
+            
+            // Generate secondary node lists and append to tree layout
+            pageTwoImages.forEach((imageSrc, index) => {
+                const card = document.createElement("div");
+                card.className = "project-media-card dynamic-append-card";
+                
+                // Fine-tuned animation delay parameters for staggered entrances
+                card.style.animationDelay = `${(index % 3) * 0.12}s`;
+                
+                card.innerHTML = `<img src="${imageSrc}" alt="Beach House Onsite Construction Update">`;
+                galleryGrid.appendChild(card);
+            });
+
+            // Lock out button once full database payload is structuralized
+            loadMoreBtn.textContent = "All Projects Loaded";
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.classList.add("is-inactive");
+        });
+    }
 });

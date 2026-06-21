@@ -41,7 +41,6 @@
     font-display: swap;
 }
 
-
 @font-face {
     font-family: 'Geist';
     src: url('../Assets/Fonts/Geist-Extrabold.woff2') format('woff2');
@@ -58,8 +57,6 @@
     font-display: swap;
 }
 
-
-
 /* ==========================================================================
    2. DESIGN TOKENS (EXCLUSIVELY 1440PX DESKTOP SPECIFICATIONS)
    ========================================================================== */
@@ -71,10 +68,15 @@
     --clr-dark-heading: #000000;
     --clr-dark-meta: #111111;
     --clr-mint-green: #E6EFEE;
-    --clr-mint-deepgreen:#BCD2D3;
+    --clr-mint-deepgreen: #BCD2D3;
     
     /* Typography Family */
     --font-family-base: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* 🎬 MOTION AND ANIMATION CONTROLS */
+    --ease-premium-spring: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-smooth-in-out: cubic-bezier(0.9, 0, 0.2, 1);
+    --motion-duration-long: 5s;
 }
 
 /* ==========================================================================
@@ -95,12 +97,32 @@ body {
     font-family: var(--font-family-base);
     background-color: #FFFFFF;
     -webkit-font-smoothing: antialiased;
-    font-family: var(--font-family-base);
-    background-color: #FFFFFF;
-    -webkit-font-smoothing: antialiased;
-
-    /* 🛠️ ADD THIS LINE */
     padding-top: 104px;    /* Matches the exact desktop height of your header */
+}
+
+/* ==========================================================================
+   3.1 HARDWARE ACCELERATED ENTRANCE KEYFRAMES
+   ========================================================================== */
+@keyframes sectionCardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes sideSlideReveal {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* ==========================================================================
@@ -125,7 +147,7 @@ body {
     display: flex;
     align-items: center;
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     z-index: 1000;
 }
@@ -171,6 +193,11 @@ body {
     text-decoration: none;
     opacity: 0.75;
     transition: opacity 0.25s ease;
+}
+
+.nav-anchor.active-anchor {
+    color: #3bc285;
+    font-weight: 600;
 }
 
 .nav-anchor:hover,
@@ -237,17 +264,15 @@ body {
 .hero-asset-frame {
     position: relative;
     width: 100%; /* Fully spans the 1200px internal grid container bounds */
-    height:548px;
+    height: 548px;
     overflow: hidden;
     border-radius: 20px;
 }
 
 .hero-main-display {
-    
     width: 100%;
-    height: 548px;        /* 🛠️ Change this number to your exact desired design height */
+    height: 548px;        
     object-fit: cover;    /* 🌟 CRUCIAL: This prevents the image from looking squished */
-    object-position: center; /* Optional: Adjusts the vertical crop focus so heads aren't cut off */
     border-radius: 20px;
     display: block;
     object-position: center 70%;
@@ -258,11 +283,8 @@ body {
     transform: scale(1.04);
 }
 
-
 /* Absolute Center Overlay Positioning Grid */
 .metric-accent-badge {
-    /* position: center;
-    bottom: -48px; /* Perfectly bisects the layout bottom border edge */
     left: 50%; 
     right: 50%;
     transform: translateX(-50%);
@@ -279,12 +301,10 @@ body {
     z-index: 500;
 }
 
-
-
 .metric-num {
     font-size: 56px;
     font-weight: 900;
-    color:#FFFFFF;
+    color: #FFFFFF;
     letter-spacing: -0.03em;
     line-height: 1;
 }
@@ -308,7 +328,6 @@ body {
     font-weight: 800;
     letter-spacing: 0.02em;
 }
-
 /* ==========================================================================
    7. ABOUT SECTION COMPONENT (DESKTOP SPECIFIC - 1440PX SYSTEM)
    ========================================================================== */
@@ -316,6 +335,10 @@ body {
     background-color: #FFFFFF;
     padding-top: 99px;
     padding-bottom: 99px;
+    position: relative;
+    
+    /* 🎬 ENFORCED VIEWPORT TRACKING ANCHOR */
+    view-timeline: --aboutTimeline block;
 }
 
 /* Header Context Alignment */
@@ -340,46 +363,53 @@ body {
     font-size: 24px;
     font-weight: 400;
     line-height: 1.5;
-    max-width: 980px; /* Constrains line length for maximum reading comfort */
+    max-width: 980px;
 }
 
 /* Bento Grid System Framework */
 .about-bento-grid {
     display: grid;
-    grid-template-columns: 1.35fr 1fr;/* Exact scale distribution between card and summary deck */
-    gap: 22px; /* Grid spatial rhythm */
+    grid-template-columns: 1.35fr 1fr;
+    gap: 22px;
     align-items: start;
     width: 1200px;
     height: 347px;
+    position: relative;
 }
 
-/* Left Card Component */
+/* Left Card Component with Hardware-Accelerated Motion Link */
 .concept-feature-card {
-    background-color: var(--clr-mint-green); /* Soft tint backdrop panel matching your design */
+    background-color: var(--clr-mint-green);
     border-radius: 0px;
     padding: 25px;
-    padding-top:2px;
+    padding-top: 2px;
     padding-bottom: 2px;
     display: flex;
     align-items: center;
     gap: 25px;
     min-height: 347px;
+    
+    /* 🎬 FALLBACK BASELINE STATE */
+    opacity: 0;
+    will-change: transform, opacity;
+    
+    /* 🎬 HARDWARE ACCELERATED MOTION TIMELINE */
+    animation: sectionCardReveal var(--motion-duration-long) var(--ease-premium-spring) forwards;
+    animation-timeline: --aboutTimeline;
+    animation-range: entry 5% cover 30%; /* Bulletproof range mapping across browsers */
 }
 
 .concept-image-frame {
- 
     width: 311px;
     height: 297px;
     overflow: hidden;
     background: transparent;
-
-    
 }
 
 .concept-display-img {
     width: 311px;
     height: 297px;
-    object-fit: co;
+    object-fit: cover;
     display: block;
     transition: transform 0.4s ease;
 }
@@ -387,7 +417,6 @@ body {
 .concept-feature-card:hover .concept-display-img {
     transform: scale(1.04);
 }
-
 
 .concept-content-block {
     display: flex;
@@ -425,7 +454,7 @@ body {
     border-radius: 0px;
     font-weight: 650;
     font-size: 20px;
-    align-self: flex-start; /* Ensures button width snaps tightly to text length */
+    align-self: flex-start;
     transition: background-color 0.2s ease;
 }
 
@@ -433,20 +462,41 @@ body {
     background-color: #0d2f2f;
 }
 
-/* Right Panel Metric Grid Assembly */
+/* Right Panel Metric Grid Assembly with Motion Link */
 .metrics-grid-aside {
     display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 22px 22px; /* 24px Vertical Spacing, 40px Horizontal Spacing */
+    gap: 22px 22px;
     width: 533px;
     height: 347px;
 }
 
-/* Individual Metric Cards */
+/* Individual Metric Cards Staggered Entry Motion Hooks */
+.concept-feature-card,
+.metrics-grid-aside .metric-data-card,
+.metrics-grid-aside .metric-data-card-1,
+.metrics-grid-aside .metric-data-card-2,
+.metrics-grid-aside .metric-data-card-3 {
+    /* 🎬 FALLBACK BASELINE STATE */
+    opacity: 0;
+    will-change: transform, opacity;
+
+    /* 🎬 HARMONIZED SLIDE REVEAL WITH TIMING CONTROLS */
+    animation: sideSlideReveal var(--motion-duration-long) var(--ease-premium-spring) forwards;
+    animation-timeline: --aboutTimeline;
+}
+
+/* Staggering window triggers perfectly aligned to look clean as you descend */
+.concept-feature-card { animation-range: entry 10% cover 80%; }
+.metrics-grid-aside .metric-data-card   { animation-range: entry 10% cover 80%; }
+.metrics-grid-aside .metric-data-card-1 { animation-range: entry 10% cover 80%; }
+.metrics-grid-aside .metric-data-card-2 { animation-range: entry 10% cover 80%; }
+.metrics-grid-aside .metric-data-card-3 { animation-range: entry 10% cover 80%; }
+
 .metric-data-card {
-    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    background-color: var(--clr-mint-green); 
     border-radius: 0px;
     padding-top: 6px;
     padding-bottom: 16px ;
@@ -455,11 +505,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* min-height: 165px; */
 }
 
 .metric-data-card-1 {
-    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    background-color: var(--clr-mint-green); 
     border-radius: 0px;
     padding-top: 26px;
     padding-bottom: 26px ;
@@ -468,11 +517,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* min-height: 178px; */
 }
 
 .metric-data-card-2 {
-    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    background-color: var(--clr-mint-green); 
     border-radius: 0px;
     padding-top: 26px;
     padding-bottom: 26px ;
@@ -481,11 +529,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* min-height: 178px; */
 }
 
 .metric-data-card-3 {
-    background-color: var(--clr-mint-green); /* Matches baseline asset tint framework */
+    background-color: var(--clr-mint-green); 
     border-radius: 0px;
     padding-top: 26px;
     padding-bottom: 26px ;
@@ -494,8 +541,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* min-height: 178px; */
 }
+
 .metric-num-display {
     color: var(--clr-teal-bg);
     font-size: 56px;
@@ -552,10 +599,9 @@ body {
     flex-direction: column;
     gap: 32px; /* Uniform spatial rhythm between cards */
     width: 100%;
-    
 }
 
-/* Individual Content Row Grid Panels */
+/* Individual Content Row Grid Panels with Waterfall Sequence Motion Mapping */
 .foundation-row-card {
     background-color: #FFFFFF; /* Crisp white interior panel surfaces */
     border-radius: 0px;
@@ -564,6 +610,13 @@ body {
     grid-template-columns: 412px 1fr; /* Precise alignment distribution ratio */
     min-height: 240px;
     width: 100%; /* Spans full width inside the 1200px constraint layer */
+    
+    /* Cinematic Continuous Rolling Track View Hook */
+    view-timeline-name: --rowTimeline;
+    view-timeline-axis: block;
+    animation: sectionCardReveal 0.7s var(--ease-smooth-in-out) both;
+    animation-timeline: --rowTimeline;
+    animation-range: entry 5% entry-crossing 45%;
 }
 
 /* Asset Container Frame */
@@ -692,7 +745,15 @@ body {
     
     padding: 40px 28px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
 }
+
+
+/* 🎬 STAGGERED ENTRANCE THRESHOLDS (Negative offsets to allow slow, visible reveal from bottom screen edge) */
+.service-custom-card:nth-child(1) { animation-range: entry -5% entry 45%; }
+.service-custom-card:nth-child(2) { animation-range: entry 2% entry 52%; }
+.service-custom-card:nth-child(3) { animation-range: entry 9% entry 59%; }
+.service-custom-card:nth-child(4) { animation-range: entry 16% entry 66%; }
 
 /* 🛠️ SCRIPT INTERACTION OVERRIDE: When text expands, we break the square aspect ratio 
    safely so the card expands vertically without cutting text or warping corners */
@@ -721,6 +782,16 @@ body {
     height: 48px;
     width: auto;
     display: block;
+    will-change: transform;
+    /* Smooth transitions for a snappy, premium bouncing effect on entry/exit */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+/* --- The Icon Pop Interaction Trigger --- */
+/* When the card is hovered, the icon will scale up by 12% and lift upwards seamlessly */
+.service-custom-card:hover .service-vector {
+    transform: scale(1.12) translateY(-4px);
+    color: var(--clr-teal-bg); /* Optional: changes vector color mapping slightly if utilizing SVG injection */
 }
 
 .service-card-title {
@@ -760,6 +831,7 @@ body {
     margin-top: auto; /* Keeps the toggle link resting evenly at the bottom edge */
 }
 
+
 /* ==========================================================================
    10. MEET THE TEAM SECTION (DESKTOP SYSTEM - 1440PX CANVAS)
    ========================================================================== */
@@ -793,12 +865,16 @@ body {
     max-width: 950px;
 }
 
-/* 🛠️ COLOR TRAY TINT: Anchors background right after text block */
+/* COLOR TRAY TINT: Anchors background right after text block */
 .team-color-tray {
     background-color: var(--clr-mint-deepgreen);
     width: 100%;
     padding-top: 80px;
     padding-bottom: 120px;
+    
+    /* Viewport Tracking Anchor */
+    view-timeline-name: --teamTimeline;
+    view-timeline-axis: block;
 }
 
 /* 3-Column Layout structure within your standard 1200px block wrapper */
@@ -809,18 +885,24 @@ body {
     width: 100%;
 }
 
-/* Individual Team Member Component Cards */
+/* Individual Team Member Component Cards with Floating Entry Animations */
 .team-profile-card {
     display: flex;
     flex-direction: column;
+    
+    /* Core Entrance Setup */
+    animation: sectionCardReveal var(--motion-duration-long) var(--ease-premium-spring) both;
+    animation-timeline: --teamTimeline;
 }
 
-/* 🛠️ ARCHITECTURAL CLIPPED IMAGING PROFILE FRAME */
+/* Staggering columns for profile cards entries */
+.team-profile-card:nth-child(1) { animation-range: entry 5% entry-crossing 45%; }
+.team-profile-card:nth-child(2) { animation-range: entry 15% entry-crossing 55%; }
+.team-profile-card:nth-child(3) { animation-range: entry 25% entry-crossing 65%; }
+
+/* ARCHITECTURAL CLIPPED IMAGING PROFILE FRAME */
 .team-image-frame {
     width: 100%;
-    /* aspect-ratio: 322/ 309;  */
-    /* Maintains the exact design aspect ratio */
-    
     overflow: hidden;
     margin-bottom: 24px;
     margin-left: -20px;
@@ -830,7 +912,7 @@ body {
 .team-portrait-img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 🛠️ Changed to contain so your pre-masked edges don't get cropped */
+    object-fit: contain; /* Changed to contain so pre-masked edges don't get cropped */
     display: block;
     transition: transform 0.4s ease;
 }
@@ -846,10 +928,7 @@ body {
     flex-direction: column;
     padding-bottom: 16px;
     margin-left: -19px;
-    
-    /* 🛠️ ACCENT LINE BAR: Generates the bottom border indicator lines underneath data blocks */
-    border-bottom: 1.1px solid #000000; 
-    
+    border-bottom: 1.1px solid #000000; /* ACCENT LINE BAR */
 }
 
 .team-member-name {
@@ -907,6 +986,10 @@ body {
     width: 100%;
     padding-top: 72px;
     padding-bottom: 72px;
+    
+    /* Viewport Tracking Anchor */
+    view-timeline-name: --projectsTimeline;
+    view-timeline-axis: block;
 }
 
 /* Outer layout containing buttons alongside the grid box */
@@ -916,30 +999,30 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%; /* Ensures it fills up the 1200px content space */
-    
 }
 
-/* 🛠️ THE WINDOW CONTAINER (The viewport mask) */
+/* THE WINDOW CONTAINER (The viewport mask) */
 .projects-slider-window {
     width: 100%;      /* Pins the mask to exactly the width of the 1200px container */
     overflow: hidden; /* Cuts off any cards that slide past the right edge */
 }
 
-/* 🛠️ THE SLIDER TRACK TRAIN */
+/* THE SLIDER TRACK TRAIN WITH ENTRANCE ANIMATION MAPPING */
 .projects-slider-track {
     display: grid;
     grid-auto-flow: column;
-    /* Forces exactly 2 cards wide per pane, factoring in the 32px gap */
-    grid-auto-columns: calc(600px - 16px); 
+    grid-auto-columns: calc(600px - 16px); /* Forces exactly 2 cards wide per pane */
     gap: 32px;
-    
-    /* Permits the track train to expand past 100% boundary limit without squeezing */
-    width: max-content; 
-    
-    /* Fluid CSS animation movement curve */
+    width: max-content; /* Permits the track train to expand past boundary limit without squeezing */
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     will-change: transform;
+    
+    /* Sleek full track reveal entry configuration */
+    animation: sectionCardReveal 0.9s var(--ease-premium-spring) both;
+    animation-timeline: --projectsTimeline;
+    animation-range: entry 10% entry-crossing 50%;
 }
+
 /* Individual Content Display Cards */
 .project-display-card {
     background-color: #FFFFFF;
@@ -951,19 +1034,14 @@ body {
     align-items: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
     width: 603.56px;
-    
 }
 
-/* 🛠️ ARCHITECTURAL PRE-MASK IMAGE CARDS */
+/* ARCHITECTURAL PRE-MASK IMAGE CARDS */
 .project-image-frame {
     width: 318px;
     height: 303px;
     overflow: hidden;
     background: transparent;
-
-    
-    
-  
 }
 
 .project-card-img {
@@ -977,7 +1055,6 @@ body {
 .project-display-card:hover .project-card-img {
     transform: scale(1.04);
 }
-
 
 /* Copy Content Rules */
 .project-info-block {
@@ -1058,7 +1135,7 @@ body {
 /* SLIDER NAVIGATION BUTTONS */
 .slider-nav-btn {
     position: absolute;
-    width:50px;
+    width: 50px;
     height: 50px;
     border-radius: 50%;
     background-color: #154244;
@@ -1077,13 +1154,8 @@ body {
 }
 
 /* Positioning buttons slightly outside / nested on row edge borders */
-.prev-btn {
-    left: 34px;
-}
-
-.next-btn {
-    right: 34px;
-}
+.prev-btn { left: 34px; }
+.next-btn { right: 34px; }
 
 /* Disabled State formatting */
 .slider-nav-btn:disabled {
@@ -1131,6 +1203,10 @@ body {
     width: 100%;
     padding-top: 80px;
     padding-bottom: 120px;
+    
+    /* Viewport Tracking Anchor */
+    view-timeline-name: --faqTimeline;
+    view-timeline-axis: block;
 }
 
 /* Asymmetric Grid: Left holds 1.4x scale relative to standard sidebar dimensions */
@@ -1141,21 +1217,33 @@ body {
     align-items: start;
 }
 
-/* Left Accordion Stack Framework */
+/* Left Accordion Stack Framework with Entrance Animation Link */
 .faq-accordion-stack {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 712px;
+    
+    /* Reveal Animation Hook */
+    animation: sectionCardReveal var(--motion-duration-long) var(--ease-premium-spring) both;
+    animation-timeline: --faqTimeline;
+    animation-range: entry 5% entry-crossing 50%;
 }
-
-
 
 .faq-accordion-item {
     background-color: #FFFFFF;
     border-radius: 0px; /* Locked down straight design aesthetics */
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.faq-accordion-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(21, 66, 68, 0.08); /* Sophisticated deep teal shadow tint */
+    border-color: rgba(21, 66, 68, 0.15);
 }
 
 /* Interactive Top Bar */
@@ -1181,13 +1269,18 @@ body {
     padding-right: 24px;
 }
 
+/* Transition the question text color when hovered or when active */
+.faq-accordion-item:hover .faq-question-text,
+.faq-accordion-item.is-active .faq-question-text {
+    color: var(--clr-teal-bg);
+}
+
 /* Pure CSS Plus (+) / Minus (-) Indicator System */
 .faq-status-icon {
     position: relative;
     width: 18px;
     height: 18px;
     flex-shrink: 0;
-
 }
 
 .faq-status-icon::before,
@@ -1214,6 +1307,13 @@ body {
     height: 100%;
 }
 
+/* Turn the plus/minus icon into a bright mint green color on hover/active states */
+.faq-accordion-item:hover .faq-status-icon::before,
+.faq-accordion-item:hover .faq-status-icon::after,
+.faq-accordion-item.is-active .faq-status-icon::before {
+    background-color: #49b37e; /* High-contrast version of brand mint */
+}
+
 /* Active Transformations: Rotate vertical bar away to form smooth minus sign */
 .faq-accordion-item.is-active .faq-status-icon::after {
     transform: rotate(90deg);
@@ -1222,37 +1322,6 @@ body {
 
 .faq-accordion-item.is-active .faq-status-icon::before {
     transform: rotate(180deg);
-}
-
-/* ==========================================================================
-   ADDITIONS: FAQ HOVER INTERACTIONS
-   ========================================================================== */
-
-/* 1. Lift the card up smoothly and add a subtle premium shadow on hover */
-.faq-accordion-item {
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
-                box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-                border-color 0.3s ease;
-    border: 1px solid transparent;
-}
-
-.faq-accordion-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(21, 66, 68, 0.08); /* Sophisticated deep teal shadow tint */
-    border-color: rgba(21, 66, 68, 0.15);
-}
-
-/* 2. Transition the question text color when hovered or when active */
-.faq-accordion-item:hover .faq-question-text,
-.faq-accordion-item.is-active .faq-question-text {
-    color: var(--clr-teal-bg);
-}
-
-/* 3. Turn the plus/minus icon into a bright mint green color on hover */
-.faq-accordion-item:hover .faq-status-icon::before,
-.faq-accordion-item:hover .faq-status-icon::after,
-.faq-accordion-item.is-active .faq-status-icon::before {
-    background-color: #49b37e; /* High-contrast version of your brand mint */
 }
 
 /* Slide Expansion Panel Window */
@@ -1272,9 +1341,14 @@ body {
     line-height: 1.6;
 }
 
-/* Right Billboard Card Styling Layout */
+/* Right Billboard Card Styling Layout with Asymmetric Entrance Motion Hook */
 .faq-billboard-aside {
     width: 100%;
+    
+    /* Core Horizontal Entry Slip Animation */
+    animation: sideSlideReveal var(--motion-duration-long) var(--ease-premium-spring) both;
+    animation-timeline: --faqTimeline;
+    animation-range: entry 15% entry-crossing 55%;
 }
 
 .faq-billboard-card {
@@ -1328,7 +1402,6 @@ body {
     font-size: 20px;
     font-weight: 700;
     padding: 20px 20px;
-    
     width: 100%; /* Spans across card boundary layout framework */
     border-radius: 0px;
     display: inline-block;
@@ -1344,8 +1417,19 @@ body {
    ========================================================================== */
 .cta-banner-section {
     background-color: #FFFFFF;
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 99px;
+    width: 100%;
+}
+
+
+/* ==========================================================================
+   13. FINAL CALL TO ACTION BANNER (DESKTOP SPECIFIC)
+   ========================================================================== */
+.cta-banner-section {
+    background-color: #FFFFFF;
+    padding-top: 60px;
+    padding-bottom: 100px;
     width: 100%;
 }
 
@@ -1373,8 +1457,8 @@ body {
 
 .cta-master-title {
     color: var(--clr-text-white);
-    font-size: 40px;
-    font-weight: 850;
+    font-size: 42px;
+    font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: 20px;
     line-height: 1.2;
@@ -1382,11 +1466,11 @@ body {
 
 .cta-description-text {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 20px;
-    font-weight: 550;
+    font-size: 16px;
+    font-weight: 400;
     line-height: 1.6;
     margin-bottom: 36px;
-    max-width: 1200px;
+    max-width: 700px;
 }
 
 /* High contrast white action container button */
@@ -1414,7 +1498,6 @@ body {
 .btn-banner-mail-cta:active {
     transform: translateY(0);
 }
-
 
 /* ==========================================================================
    14. SITE FOOTER COMPONENT
@@ -1494,10 +1577,19 @@ body {
     gap: 18px;
 }
 
-.footer-brand-logo-img {
-    height: 48px; /* Perfectly matches the layout scale */
-    width: auto;
+.footer-brand-icon {
+    width: 54px;
+    height: auto;
     display: block;
+}
+
+.footer-brand-wordmark {
+    color: var(--clr-text-white);
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1;
 }
 
 /* Brand Tagline Display Styles */
@@ -1508,4 +1600,194 @@ body {
     letter-spacing: -0.01em;
     margin: 0;
     line-height: 1;
+}
+
+/* ==========================================================================
+   PROJECT DETAILS PAGE ISOLATED STYLES
+   ========================================================================== */
+
+.portfolio-subpage-wrapper {
+    background-color: #FFFFFF;
+    padding-bottom: 99px;
+}
+
+.portfolio-intro-deck {
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+.portfolio-master-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--clr-dark-heading, #111111);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.portfolio-header-lead {
+    font-size: 20px;
+    color: #666666;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Metadata Layout Header Split */
+.project-spec-showcase {
+    padding-top: 40px;
+}
+
+.project-spec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 1200px;
+    margin: 0 auto 48px auto;
+}
+
+.spec-meta-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.spec-tag {
+    font-size: 14px;
+    font-weight: 700;
+    color: #154244;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.spec-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 12px;
+}
+
+.spec-logistics {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555555;
+}
+
+.spec-meta-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 480px;
+}
+
+.media-toggle-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tab-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #E0E0E0;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active-tab {
+    background-color: #154244;
+    color: #FFFFFF;
+    border-color: #154244;
+}
+
+.spec-description-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333333;
+    text-align: right;
+}
+
+/* ==========================================================================
+   IMAGE LAYOUT GRID ASSEMBLY
+   ========================================================================== */
+.project-media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    width: 1200px;
+    margin: 0 auto 56px auto;
+}
+
+.project-media-card {
+    width: 100%;
+    aspect-ratio: 388 / 250;
+    overflow: hidden;
+    background-color: #F9F9F9;
+}
+
+.project-media-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.project-media-card:hover img {
+    transform: scale(1.04);
+}
+
+/* ==========================================================================
+   ACTION BUTTON ELEMENT AND INACTIVE DISABLING
+   ========================================================================== */
+.gallery-action-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.btn-gallery-load {
+    background-color: #4AD295;
+    color: #113228;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    padding: 14px 40px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.btn-gallery-load:hover {
+    background-color: #3bc285;
+    transform: translateY(-2px);
+}
+
+/* Inactive State Selector Overrides */
+.btn-gallery-load.is-inactive,
+.btn-gallery-load:disabled {
+    background-color: #CBEFDF !important;
+    color: #79A391 !important;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Dynamic Animation Transitions */
+.dynamic-append-card {
+    opacity: 0;
+    animation: subpageReveal 0.6s cubic-bezier(0.215, 0.610, 0.355, 1) both;
+}
+
+@keyframes subpageReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
