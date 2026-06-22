@@ -1936,6 +1936,6 @@ body.lightbox-open {
 .lightbox-arrow.nav-locked {
     opacity: 0.2;
     cursor: not-allowed;
-    background: ;
+    background: nonegit;
     pointer-events: none; /* Disables all hovering and accidental click processing */
 }
