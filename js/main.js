@@ -328,41 +328,176 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ==========================================================================
+    // 5. FULL PROJECT BEACH HOUSE
+    // ==========================================================================
+
 document.addEventListener("DOMContentLoaded", () => {
     const loadMoreBtn = document.getElementById("btn-load-more");
-    const galleryGrid = document.getElementById("project-gallery-grid");
+    
+    // Set layout page display parameters (3x3 grid blocks)
+    const IMAGES_PER_PAGE = 9;
 
-    // Exact data mapping payload from the remaining blocks in Project 1.jpg
-    const pageTwoImages = [
-    "Assets/Images/b10.jpg",
-    "Assets/Images/b11.jpg",
-    "Assets/Images/b12.jpg",
-    "Assets/Images/b13.jpg",
-    "Assets/Images/b14.jpg",
-    "Assets/Images/b15.jpg",
-    "Assets/Images/b16.jpg",
-    "Assets/Images/b17.jpg",
-    "Assets/Images/b18.jpg"
-];
-    if (loadMoreBtn && galleryGrid) {
-        loadMoreBtn.addEventListener("click", () => {
+    function revealNextBatch() {
+        // Look inside the live document for elements holding the hidden class rule
+        const hiddenCards = Array.from(document.querySelectorAll(".project-media-card.hidden-row"));
+        
+        // Isolate a maximum payload slicing window of 9 elements
+        const currentBatch = hiddenCards.slice(0, IMAGES_PER_PAGE);
+
+        currentBatch.forEach((card, index) => {
+            card.classList.remove("hidden-row");
+            card.classList.add("dynamic-append-card");
             
-            // Generate secondary node lists and append to tree layout
-            pageTwoImages.forEach((imageSrc, index) => {
-                const card = document.createElement("div");
-                card.className = "project-media-card dynamic-append-card";
-                
-                // Fine-tuned animation delay parameters for staggered entrances
-                card.style.animationDelay = `${(index % 3) * 0.12}s`;
-                
-                card.innerHTML = `<img src="${imageSrc}" alt="Beach House Onsite Construction Update">`;
-                galleryGrid.appendChild(card);
-            });
+            // Stagger animation timing slightly for a premium, non-abrupt reveal sequence
+            card.style.animationDelay = `${(index % 3) * 0.1}s`;
+        });
 
-            // Lock out button once full database payload is structured
+        // If no more hidden elements remain in the HTML code tree, deactivate the button
+        if (hiddenCards.length <= IMAGES_PER_PAGE && loadMoreBtn) {
             loadMoreBtn.textContent = "All Projects Loaded";
             loadMoreBtn.disabled = true;
             loadMoreBtn.classList.add("is-inactive");
+        }
+    }
+
+    function revertLastBatch() {
+        const revealedCards = Array.from(document.querySelectorAll(".dynamic-append-card"));
+        if (revealedCards.length === 0) return;
+
+        // Target the last appended 9 images to hide them again
+        const batchToHide = revealedCards.slice(-IMAGES_PER_PAGE);
+
+        batchToHide.forEach(card => {
+            card.classList.remove("dynamic-append-card");
+            card.classList.add("hidden-row");
+            card.style.animationDelay = "0s";
+        });
+
+        if (loadMoreBtn) {
+            loadMoreBtn.textContent = "Load More";
+            loadMoreBtn.disabled = false;
+            loadMoreBtn.classList.remove("is-inactive");
+        }
+    }
+
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener("click", () => {
+            revealNextBatch();
+            
+            // Log state history anchor to capture browser back arrow events
+            history.pushState({ galleryPageActive: true }, "");
         });
     }
+
+    // Capture state adjustments to roll back rows gracefully
+    window.addEventListener("popstate", (event) => {
+        if (!event.state || !event.state.galleryPageActive) {
+            revertLastBatch();
+        }
+    });
+});
+
+// ==========================================================================
+// LIGHTBOX MODAL CORE CONTROLLER (WITH ARROW LOCKING)
+// ==========================================================================
+const lightbox = document.getElementById("gallery-lightbox");
+const lightboxImg = document.getElementById("lightbox-target-img");
+const closeBtn = document.querySelector(".lightbox-close");
+const leftArrow = document.querySelector(".arrow-left");
+const rightArrow = document.querySelector(".arrow-right");
+
+let currentIndex = 0;
+let visibleCards = [];
+
+function updateActiveVisibleDeck() {
+    // Only capture elements currently active and visible in the DOM grid
+    visibleCards = Array.from(document.querySelectorAll(".project-media-card:not(.hidden-row)"));
+}
+
+function updateArrowVisibilityStates() {
+    // 🔒 Lock Left Arrow if on the absolute first image
+    if (currentIndex === 0) {
+        leftArrow.disabled = true;
+        leftArrow.classList.add("nav-locked");
+    } else {
+        leftArrow.disabled = false;
+        leftArrow.classList.remove("nav-locked");
+    }
+
+    // 🔒 Lock Right Arrow if on the absolute final image currently loaded
+    if (currentIndex === visibleCards.length - 1) {
+        rightArrow.disabled = true;
+        rightArrow.classList.add("nav-locked");
+    } else {
+        rightArrow.disabled = false;
+        rightArrow.classList.remove("nav-locked");
+    }
+}
+
+function displayImageAtIndex(index) {
+    if (index < 0 || index >= visibleCards.length) return;
+    
+    currentIndex = index;
+    const targetImgSrc = visibleCards[currentIndex].querySelector("img").src;
+    const targetImgAlt = visibleCards[currentIndex].querySelector("img").alt;
+    
+    lightboxImg.src = targetImgSrc;
+    lightboxImg.alt = targetImgAlt;
+
+    // 🎯 Trigger the safety locks after updating the index position
+    updateArrowVisibilityStates();
+}
+
+function openLightbox(index) {
+    updateActiveVisibleDeck();
+    displayImageAtIndex(index);
+    lightbox.classList.add("is-visible");
+    document.body.classList.add("lightbox-open");
+}
+
+function closeLightbox() {
+    lightbox.classList.remove("is-visible");
+    document.body.classList.remove("lightbox-open");
+    setTimeout(() => { lightboxImg.src = ""; }, 400); 
+}
+
+// Attach listeners cleanly across parent container nodes
+document.getElementById("project-gallery-grid").addEventListener("click", (e) => {
+    const clickedCard = e.target.closest(".project-media-card");
+    if (!clickedCard || clickedCard.classList.contains("hidden-row")) return;
+    
+    updateActiveVisibleDeck();
+    const resolvedIndex = visibleCards.indexOf(clickedCard);
+    openLightbox(resolvedIndex);
+});
+
+// Stepping backward safely
+leftArrow.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (currentIndex > 0) {
+        displayImageAtIndex(currentIndex - 1);
+    }
+});
+
+// Stepping forward safely
+rightArrow.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (currentIndex < visibleCards.length - 1) {
+        displayImageAtIndex(currentIndex + 1);
+    }
+});
+
+// Exit Modal Closures
+closeBtn.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+});
+
+// Keyboard mapping overrides with built-in boundary checks
+document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("is-visible")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft" && currentIndex > 0) leftArrow.click();
+    if (e.key === "ArrowRight" && currentIndex < visibleCards.length - 1) rightArrow.click();
 });

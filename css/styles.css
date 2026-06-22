@@ -1603,7 +1603,7 @@ body {
 }
 
 /* ==========================================================================
-   PROJECT DETAILS PAGE ISOLATED STYLES
+   FULL PROJECT DETAILS PAGE ISOLATED STYLES 
    ========================================================================== */
 
 .portfolio-subpage-wrapper {
@@ -1625,9 +1625,9 @@ body {
 }
 
 .portfolio-header-lead {
-    font-size: 20px;
-    color: #666666;
-    max-width: 900px;
+    font-size: 24px;
+    color: #000;
+    max-width: 1200px;
     margin: 0 auto;
     line-height: 1.5;
     text-align: center;
@@ -1677,15 +1677,23 @@ body {
 .spec-meta-right {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     max-width: 480px;
+}
+.spec-description-text {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #000;
+    text-align: left;
 }
 
 .media-toggle-tabs {
     display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 19px;
+    margin-bottom: px;
+    margin-left: 113px;
 }
+
 
 .tab-btn {
     padding: 8px 20px;
@@ -1705,7 +1713,8 @@ body {
 
 .spec-description-text {
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.3
+    ;
     color: #333333;
     text-align: right;
 }
@@ -1716,7 +1725,7 @@ body {
 .project-media-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    gap: 20px;
     width: 1200px;
     margin: 0 auto 56px auto;
 }
@@ -1738,6 +1747,28 @@ body {
 
 .project-media-card:hover img {
     transform: scale(1.04);
+}
+
+/* Hard constraints to prevent broken structural boxes */
+.project-media-card.hidden-row {
+    display: none !important;
+}
+
+/* Fluid reveal animations for the pagination step blocks */
+.dynamic-append-card {
+    opacity: 0;
+    animation: layoutFadeIn 0.5s cubic-bezier(0.215, 0.610, 0.355, 1) both;
+}
+
+@keyframes layoutFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ==========================================================================
@@ -1790,4 +1821,121 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ==========================================================================
+   PREVIEW LIGHTBOX MODAL SYSTEM
+   ========================================================================== --> */
+
+   /* ==========================================================================
+   PREVIEW LIGHTBOX MODAL SYSTEM (FIXED SCALING & RESOLUTION)
+   ========================================================================== */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.lightbox-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 🎯 THE FIX: Constrained wrapper to scale down the image display frame */
+.lightbox-content {
+    width: 100%;
+    max-width: auto; /* Forces high-res images to stay at an elegant, scaled-down size */
+    height: 980px;
+    max-height: 70vh; /* Keeps vertical portrait frames comfortably inside the viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Dynamic Aspect-Ratio Layout Engine */
+#lightbox-target-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Retains absolute true proportions for portrait/landscape */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    transform: scale(0.96);
+    transition: transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.lightbox-overlay.is-visible #lightbox-target-img {
+    transform: scale(1);
+}
+
+/* UI Interactive Actions UI Layout */
+.lightbox-close {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 28px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-close:hover {
+    opacity: 1;
+}
+
+.lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #3bc285;
+    border: none;
+    color: #154244;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.lightbox-arrow:hover {
+    background: #35986c;
+}
+
+/* Keeps arrows perfectly clear of the scaled content */
+.arrow-left { 
+    left: 40px; 
+}
+
+.arrow-right { 
+    right: 40px; 
+}
+
+body.lightbox-open {
+    overflow: hidden !important;
+}
+
+/* Styling state for disabled boundary arrows */
+.lightbox-arrow.nav-locked {
+    opacity: 0.2;
+    cursor: not-allowed;
+    background: ;
+    pointer-events: none; /* Disables all hovering and accidental click processing */
 }
