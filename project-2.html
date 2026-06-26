@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residential Project — D'Nesta Masta</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/projects.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-container header-inner">
+            <a href="index.html" class="brand-logo">
+                <img src="Assets/Icon/Icon + Word Mark.svg" alt="D'Nesta Masta Logo" class="logo-mark">
+            </a>
+
+            <nav class="main-navigation">
+                <ul class="nav-links-list">
+                    <li><a href="index.html" class="nav-anchor">Home</a></li>
+                    <li><a href="index.html#about" class="nav-anchor">About</a></li>
+                    <li><a href="index.html#services" class="nav-anchor">Services</a></li>
+                    <li><a href="index.html#team" class="nav-anchor">Team</a></li>
+                    <li><a href="project-1.html" class="nav-anchor">Projects</a></li>
+                    <li><a href="index.html#faq" class="nav-anchor">Faq</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-action">
+                <a href="mailto:hello@nestermaster.com" class="btn-primary-cta">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="portfolio-subpage-wrapper">
+        
+        <section class="portfolio-intro-deck">
+            <div class="site-container text-center">
+                <h1 class="portfolio-master-title">Our Projects</h1>
+                <p class="portfolio-header-lead">
+                    Comprehensive construction solutions tailored to your vision, budget, and timeline.
+                </p>
+            </div>
+        </section>
+
+        <section class="project-spec-showcase">
+            <div class="site-container">
+                <div class="project-spec-header">
+                    <div class="spec-meta-left">
+                        <span class="spec-tag">RESIDENTIAL</span>
+                        <h2 class="spec-title">Three Bedroom Suite</h2>
+                        <div class="spec-logistics">
+                            <span class="meta-item"> <img src="Assets/Icon/Location--inject-1.svg" alt=""> LEKKI EPE LAGOS</span>
+                            <span class="meta-item"> <img src="Assets/Icon/Date.svg" alt=""> JUNE 2024</span>
+                            
+                            <div class="media-toggle-wrapper">
+                                <button id="tab-show-images" class="btn-toggle-tab is-active">Images</button>
+                                <button id="tab-show-videos" class="btn-toggle-tab">Videos</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spec-meta-right">
+                        <p class="spec-description-text">
+                            An elegant residential structure maximizing spatial design and functional modern luxury. A true sanctuary built for comfort.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 🖼️ IMAGE GRID CONTAINER -->
+                <div id="project-gallery-grid" class="project-media-grid">
+                    <div class="project-media-card" data-index="0"><img src="Assets/Images/Residential Construction/DJI_20260325123652_0534_D.jpg" alt="Residential Detail View"></div>
+                    <div class="project-media-card" data-index="1"><img src="Assets/Images/Residential Construction/DJI_20260325123815_0539_D.jpg" alt="Residential Structural Build"></div>
+                    <div class="project-media-card" data-index="2"><img src="Assets/Images/Residential Construction/DJI_20260325123926_0542_D.jpg" alt="Interior Framing Stage"></div>
+                    <div class="project-media-card" data-index="3"><img src="Assets/Images/Residential Construction/DJI_20260325124326_0551_D.jpg" alt="Foundation Framework Block"></div>
+                    <div class="project-media-card" data-index="4"><img src="Assets/Images/Residential Construction/DJI_20260325124338_0554_D.jpg" alt="Exterior Brick Masonry"></div>
+                    <div class="project-media-card" data-index="5"><img src="Assets/Images/Residential Construction/DJI_20260325124354_0558_D.jpg" alt="Roofing Support Installation"></div>
+                    <div class="project-media-card" data-index="6"><img src="Assets/Images/Residential Construction/DJI_20260325124532_0566_D.jpg" alt="Aerial Suite Perspective"></div>
+                </div>
+
+                <!-- 🎥 VIDEO GRID CONTAINER -->
+                <div id="project-video-grid" class="project-media-grid hidden-pane">
+                    <div class="project-media-card video-card">
+                        <video controls poster="Assets/Images/Residential Construction/DJI_20260325124338_0554_D.jpg">
+                            <source src="Assets/Videos/DJI_20260325123822_0541.mov" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="project-media-card video-card">
+                        <video controls poster="Assets/Images/Residential Construction/DJI_20260325123926_0542_D.jpg">
+                            <source src="Assets/Videos/DJI_20260325124119_0547.mov" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="project-media-card video-card">
+                        <video controls poster="Assets/Images/Residential Construction/DJI_20260325124326_0551_D.jpg">
+                            <source src="Assets/Videos/DJI_20260325124142_0548 (1).mov" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                <div class="gallery-action-wrapper">
+                    <button id="btn-load-more" class="btn-gallery-load">Load More</button>
+                </div>
+
+                <!-- 🎯 Dynamic Media Lightbox Stage -->
+                <div id="gallery-lightbox" class="lightbox-overlay">
+                    <button class="lightbox-close" aria-label="Close Preview">✕</button>
+                    
+                    <button class="lightbox-arrow arrow-left" aria-label="Previous Image">
+                        <img src="Assets/Icon/Prev.svg" alt="prev-btn">
+                    </button>
+                    
+                    <div class="lightbox-content">
+                        <img id="lightbox-target-img" src="" alt="Expanded Project Image View" style="display: none;">
+                        <video id="lightbox-target-video" controls autoplay src="" style="display: none;"></video>
+                    </div>
+                    
+                    <button class="lightbox-arrow arrow-right" aria-label="Next Image">
+                        <img src="Assets/Icon/next.svg" alt="next-btn">
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer-wrapper">
+        <div class="site-container">
+            <div class="footer-meta-grid">
+                <div class="footer-grid-col col-copyright">
+                    <p>© 2026 DNMCL.<br>All Rights Reserved.</p>
+                </div>
+                <div class="footer-grid-col col-socials">
+                    <ul class="footer-inline-links">
+                        <li><a href="https://linkedin.com" target="_blank" rel="noopener">Linkedin</a></li>
+                        <li><a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a></li>
+                        <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-grid-col col-contact">
+                    <p>
+                        <a href="mailto:info@dnestamasta.com" class="footer-interactive-link">info@dnestamasta.com</a><br>
+                        <a href="tel:+2348083572356" class="footer-interactive-link">(+234) 8083572356</a>
+                    </p>
+                </div>
+                <div class="footer-grid-col col-address">
+                    <p>
+                        D4 Atican Beach view<br>
+                        Estate Okun Ajah Off<br>
+                        Abraham Adesanya<br>
+                        Lekki Lagos.
+                    </p>
+                </div>
+            </div>
+
+            <hr class="footer-structural-divider">
+
+            <div class="footer-branding-block">
+                <div class="footer-brand-anchor">
+                    <img src="Assets/Icon/Icon + Word Mark.svg" alt="D'Nesta Masta Logo" class="footer-brand-logo-img">
+                </div>
+                <div class="footer-tagline-block">
+                    <p class="footer-tagline-text">Your Concept, Our Construction...</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
