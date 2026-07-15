@@ -1,50 +1,79 @@
 // ==========================================================================
-// D'NESTA MASTA - MASTER ENGAGEMENT ENGINE (UNIFIED MAIN & PROJECT SCRIPT)
+// D'NESTA MASTA - MASTER ENGAGEMENT ENGINE (UNIFIED MAIN & NAVIGATION SCRIPT)
 // ==========================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
     const navAnchors = document.querySelectorAll(".nav-anchor");
-    
-    // Get the current URL from the address bar
     const currentUrl = window.location.href;
+    const headerInner = document.querySelector('.header-inner');
 
-    // 🎯 STRICT ROUTING: If on project-1.html OR project-2.html, run this block
-    if (/project-1\.html/i.test(currentUrl) || /project-2\.html/i.test(currentUrl)){
-        
-        // Force ONLY the Projects link to be active and green on these pages
+    // ----------------------------------------------------------------------
+    // MODULE 1: CORE HAMBURGER TOGGLE ENGINE & FULL ROW INTERACTION TARGETS
+    // ----------------------------------------------------------------------
+    if (headerInner) {
+        headerInner.addEventListener('click', (e) => {
+            const rect = headerInner.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            
+            // Check if the click target falls near the right margin zone containing the icon element
+            if (clickX > rect.width - 64) {
+                document.body.classList.toggle('mobile-menu-active');
+            }
+        });
+    }
+
+    // Massive tap area listener covering whole link line text blocks
+    navAnchors.forEach(link => {
+        link.addEventListener('click', function() {
+            // Instantly strip active colors across other items
+            navAnchors.forEach(item => item.classList.remove('active-anchor'));
+            
+            // Turn the clicked anchor text link line mint green instantly
+            this.classList.add('active-anchor');
+            
+            // Gracefully slide the mobile menu closed so the user watches their destination scroll up
+            setTimeout(() => {
+                document.body.classList.remove('mobile-menu-active');
+            }, 120);
+        });
+    });
+
+
+    // ----------------------------------------------------------------------
+    // MODULE 2: STRICT ROUTING & SCROLL RADAR OBSERVATION
+    // ----------------------------------------------------------------------
+    if (/project-1\.html/i.test(currentUrl) || /project-2\.html/i.test(currentUrl)) {
+        // Force ONLY the Projects link to be active and green on sub-pages
         navAnchors.forEach((anchor) => {
             const anchorHref = anchor.getAttribute("href");
-            
-            // Link matches project-1 OR project-2 OR ends with #projects
             if (/project-1\.html/i.test(anchorHref) || /project-2\.html/i.test(anchorHref) || anchorHref.endsWith("#projects")) {
                 anchor.classList.add("active-anchor");
             } else {
                 anchor.classList.remove("active-anchor");
             }
         });
-
     } else {
-        // 🎯 SCROLL RADAR DIRECTION: If they are on index.html, run the scroll-tracking logic
+        // SCROLL RADAR: Monitor position on index.html layout track
         const sections = document.querySelectorAll("section[id], header[id]");
-
         const observerOptions = {
             root: null, 
             rootMargin: "-30% 0px -60% 0px" 
         };
 
         const sectionObserver = new IntersectionObserver((entries) => {
+            // Suppress scroll tracing changes while user has the mobile menu interface active
+            if (document.body.classList.contains('mobile-menu-active')) return;
+
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     let currentSectionId = entry.target.getAttribute("id");
 
-                    // Keep your Foundation section linked to About
                     if (currentSectionId === "foundation") {
                         currentSectionId = "about";
                     }
 
                     navAnchors.forEach((anchor) => {
                         const anchorHref = anchor.getAttribute("href");
-
                         if (anchorHref.endsWith(`#${currentSectionId}`)) {
                             anchor.classList.add("active-anchor");
                         } else {
@@ -59,16 +88,13 @@ document.addEventListener("DOMContentLoaded", () => {
             sectionObserver.observe(section);
         });
     }
-});
 
-// ==========================================================================
-// MASTER LANDING PAGE INTERACTIONS ENGINE
-// ==========================================================================
-document.addEventListener('DOMContentLoaded', () => {
 
-    // --- ABOUT SECTION: NUMBERS COUNT-UP ENGINE ---
+    // ----------------------------------------------------------------------
+    // MODULE 3: ABOUT SECTION NUMBERS COUNT-UP ENGINE
+    // ----------------------------------------------------------------------
     const metricNumbers = document.querySelectorAll('.metric-num-display');
-    const animationDuration = 2000; 
+    const animationDuration = 1300; 
 
     const startCounting = (counterElement) => {
         const targetValue = parseInt(counterElement.getAttribute('data-target'), 10);
@@ -90,55 +116,78 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(updateNumber);
     };
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
+    const countObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 metricNumbers.forEach(number => startCounting(number));
                 observer.unobserve(entry.target);
             }
         });
-    }, { root: null, threshold: 0.2 });
+    }, { root: null, threshold: 0.3 });
 
     const targetSection = document.querySelector('.about-viewport-section');
     if (targetSection) {
-        sectionObserver.observe(targetSection);
+        countObserver.observe(targetSection);
     }
 
 
-    // --- SERVICES SECTION: TEXT ACCORDION EXPANSION ENGINE ---
+    // ----------------------------------------------------------------------
+    // 🎯 MODULE 4: FIXED SERVICES TEXT ACCORDION ACTIONS (PROPER CLASS TARGETS)
+    // ----------------------------------------------------------------------
     const toggleButtons = document.querySelectorAll('.btn-service-toggle');
 
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
             const currentWrapper = this.previousElementSibling;
             const currentCard = this.closest('.service-custom-card');
-            const isAlreadyExpanded = currentCard.classList.contains('is-expanded');
+            const isAlreadyExpanded = this.classList.contains('active-expanded');
 
+            // IF WE ARE OPENING A CARD, CLOSE ALL OTHER OPEN CARDS FIRST
             if (!isAlreadyExpanded) {
                 toggleButtons.forEach(otherButton => {
-                    const otherCard = otherButton.closest('.service-custom-card');
-                    if (otherCard && otherCard !== currentCard && otherCard.classList.contains('is-expanded')) {
+                    if (otherButton !== button) {
                         const otherWrapper = otherButton.previousElementSibling;
-                        otherWrapper.style.maxHeight = "48px";
-                        otherButton.textContent = "Read more";
-                        otherCard.classList.remove('is-expanded');
+                        const otherCard = otherButton.closest('.service-custom-card');
+                        
+                        if (otherButton.classList.contains('active-expanded')) {
+                            otherWrapper.style.maxHeight = "48px";
+                            otherButton.textContent = "Read more";
+                            otherButton.classList.remove('active-expanded');
+                            
+                            setTimeout(() => {
+                                if (!otherButton.classList.contains('active-expanded')) {
+                                    otherCard.classList.remove('is-expanded-card');
+                                }
+                            }, 400);
+                        }
                     }
                 });
 
-                currentCard.classList.add('is-expanded');
+                // EXPAND THE CURRENT CARD
+                currentCard.classList.add('is-expanded-card');
                 currentWrapper.style.maxHeight = currentWrapper.scrollHeight + "px";
                 this.textContent = "Read less";
+                this.classList.add('active-expanded');
                 
             } else {
+                // COLLAPSE THE CURRENT CARD IF CLICKED AGAIN
                 currentWrapper.style.maxHeight = "48px";
                 this.textContent = "Read more";
-                currentCard.classList.remove('is-expanded');
+                this.classList.remove('active-expanded');
+                
+                setTimeout(() => {
+                    if (!this.classList.contains('active-expanded')) {
+                        currentCard.classList.remove('is-expanded-card');
+                    }
+                }, 400);
             }
         });
     });
 
 
-    // --- MAIN LANDING PAGE: PROJECTS SLIDER CAROUSEL TRACKER ---
+    // ----------------------------------------------------------------------
+    // MODULE 5: PROJECTS SLIDER CAROUSEL TRACKER
+    // ----------------------------------------------------------------------
     const track = document.querySelector('.projects-slider-track');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
@@ -175,17 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         updateSliderPosition();
-        
         const observer = new MutationObserver(updateSliderPosition);
         observer.observe(track, { childList: true });
     }
 
-});
 
-// ==========================================================================
-// FAQ ACCORDION COMPONENT ACTIONS ENGINE
-// ==========================================================================
-document.addEventListener('DOMContentLoaded', () => {
+    // ----------------------------------------------------------------------
+    // MODULE 6: FAQ ACCORDION EXPANSION SYSTEMS
+    // ----------------------------------------------------------------------
     const accordionTriggers = document.querySelectorAll('.faq-trigger-bar');
 
     accordionTriggers.forEach(trigger => {
@@ -210,13 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
 
-// ==========================================================================
-// UNIFIED PORTFOLIO GALLERY CONTROL ENGINE (PROJECT 1 & PROJECT 2 DUAL SUPPORT)
-// ==========================================================================
-document.addEventListener("DOMContentLoaded", () => {
-    
+
+    // ----------------------------------------------------------------------
+    // MODULE 7: UNIFIED PORTFOLIO GALLERY CONTROL ENGINE (LIGHTBOX & TABS)
+    // ----------------------------------------------------------------------
     const loadMoreBtn = document.getElementById("btn-load-more");
     const tabImages = document.getElementById("tab-show-images");
     const tabVideos = document.getElementById("tab-show-videos");
@@ -234,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
     let visibleCards = [];
 
-    // --- MODULE 1: INTERACTIVE LOAD MORE SYSTEM ---
     function revealNextBatch() {
         const hiddenCards = Array.from(document.querySelectorAll(".project-media-card.hidden-row"));
         const currentBatch = hiddenCards.slice(0, IMAGES_PER_PAGE);
@@ -283,7 +326,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- MODULE 2: IMAGES / VIDEOS FILTER TABS CONTROLLER ---
     if (tabImages && tabVideos) {
         tabImages.addEventListener("click", () => {
             tabImages.classList.add("is-active");
@@ -307,7 +349,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- MODULE 3: MODAL PREVIEW GRID CONTROL INTERACTION ---
     function updateActiveVisibleDeck() {
         if (imageGrid && !imageGrid.classList.contains("hidden-pane")) {
             visibleCards = Array.from(imageGrid.querySelectorAll(".project-media-card:not(.hidden-row)"));
@@ -389,20 +430,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 400); 
     }
 
-    [imageGrid, videoGrid].forEach(grid => {
-        if (grid) {
-            grid.addEventListener("click", (e) => {
-                const clickedCard = e.target.closest(".project-media-card");
-                if (!clickedCard || clickedCard.classList.contains("hidden-row")) return;
-                
-                if (e.target.tagName === "VIDEO") e.preventDefault();
-                
-                updateActiveVisibleDeck();
-                const resolvedIndex = visibleCards.indexOf(clickedCard);
-                openLightbox(resolvedIndex);
-            });
-        }
-    });
+    if (imageGrid) {
+        imageGrid.addEventListener("click", (e) => {
+            const clickedCard = e.target.closest(".project-media-card");
+            if (!clickedCard || clickedCard.classList.contains("hidden-row")) return;
+            updateActiveVisibleDeck();
+            const resolvedIndex = visibleCards.indexOf(clickedCard);
+            openLightbox(resolvedIndex);
+        });
+    }
+
+    if (videoGrid) {
+        videoGrid.addEventListener("click", (e) => {
+            const clickedCard = e.target.closest(".project-media-card");
+            if (!clickedCard) return;
+            if (e.target.tagName === "VIDEO") e.preventDefault();
+            updateActiveVisibleDeck();
+            const resolvedIndex = visibleCards.indexOf(clickedCard);
+            openLightbox(resolvedIndex);
+        });
+    }
 
     if (leftArrow) {
         leftArrow.addEventListener("click", (e) => {
@@ -432,3 +479,4 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "ArrowRight" && currentIndex < visibleCards.length - 1 && rightArrow) rightArrow.click();
     });
 });
+

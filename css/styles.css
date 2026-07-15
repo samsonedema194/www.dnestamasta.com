@@ -1745,6 +1745,7 @@ body {
     transition: transform 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
 
+
 .project-media-card:hover img {
     transform: scale(1.04);
 }
@@ -2133,7 +2134,7 @@ body.lightbox-open {
         left: 25px; 
         font-size: 26px; 
     }
-}
+
 
 .video-card {
     position: relative;
@@ -2196,4 +2197,821 @@ body.lightbox-open {
 .lightbox-overlay.is-visible #lightbox-target-video {
     transform: scale(1);
 }
+/* ==========================================================================
+   MOBILE UI OVERRIDE: HERO SECTION SPECIFICATIONS
+   ========================================================================== */
 
+    
+    /* --- 1. SITE HEADER & MOBILE MENU TRIGGER --- */
+    .site-header {
+        height: 64px;
+        background-color: var(--clr-teal-bg);
+    }
+    
+    .site-container.header-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Hide desktop-only components safely */
+    .main-navigation, 
+    .header-action {
+        display: none !important;
+    }
+
+    .logo-mark {
+    width: auto;
+    height: 26px;
+}
+
+
+    /* Inject the custom ham burger icon on the right margin edge */
+    .header-inner::after {
+        content: '';
+        width:27px;
+        height: 21px;
+        display: block;
+        cursor: pointer;
+        /* Dynamic 3-line pure CSS asset generation matching your frame */
+        background: linear-gradient(
+            to bottom,
+            var(--clr-text-white) 0%, var(--clr-text-white) 15%,
+            transparent 15%, transparent 42.5%,
+            var(--clr-text-white) 42.5%, var(--clr-text-white) 57.5%,
+            transparent 57.5%, transparent 85%,
+            var(--clr-text-white) 85%, var(--clr-text-white) 100%
+        );
+    }
+
+    /* --- 2. HERO COMPONENT TYPOGRAPHY & BOX MODEL --- */
+    .hero-viewport-section {
+        padding-top: 48px;
+        padding-bottom: 64px; /* Room for the overlapping badge edge */
+        background-color: #FFFFFF;
+    }
+
+    .hero-viewport-section .site-container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .hero-master-headline {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: var(--clr-dark-heading);
+        margin-bottom: 16px;
+        margin-top: -49px;
+        display: block; /* Allows natural text wrapping */
+    }
+
+    /* --- 3. HERO IMAGE FRAME & OVERLAPPING METRIC BADGE --- */
+    .hero-inner-layout {
+        position: relative;
+        width: 100%;
+    }
+
+    .hero-asset-frame {
+        width: 100%;
+        height: 192px; /* Proportional smartphone crop height */
+        border-radius: 16px;
+        overflow: visible; /* Permits badge extension below the crop frame boundary */
+    }
+
+    .hero-main-display {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    
+
+    /* Absolute Bottom-Center Floating Logic matching your design layout */
+    .metric-accent-badge {
+        position: absolute;
+        bottom: -28px; /* Pulled exactly halfway outside the lower bounds of the image */
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+        margin: 0 !important;
+        
+        background-color: var(--clr-mint-accent);
+        width: calc(100% - 72px); /* Uniform inner side margins inside the container bounds */
+        max-width: 166px;
+        height: 48px;
+        padding: 0 24px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.06);
+        border-radius: 0px; /* Kept straight as per core design language tokens */
+        z-index: 10;
+    }
+
+    .metric-num {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--clr-text-white);
+        letter-spacing: -0.02em;
+        line-height: 1;
+    }
+
+    .metric-label-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        line-height: 1.1;
+    }
+
+    .label-meta-top {
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        color: var(--clr-dark-meta);
+    }
+
+    .label-meta-bold {
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        color: var(--clr-dark-meta);
+    }
+
+
+/* --- 1. SITE HEADER LAYOUT SANITIZATION --- */
+    .site-header {
+        height: 64px;
+        background-color: var(--clr-teal-bg);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    /* Target the container housing your elements */
+    .site-header .header-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* FORCED MOBILE HIDING: Completely drops desktop structural components out of document flow */
+    .site-header .main-navigation,
+    .site-header .header-action {
+        display: none !important;
+    }
+
+    /* Re-inject clean, explicit hamburger element tracking on the right */
+    .site-header .header-inner::after {
+        content: '';
+        width: 27px;
+        height: 21px;
+        display: block;
+        cursor: pointer;
+        z-index: 1001;
+        background: linear-gradient(
+            to bottom,
+            var(--clr-text-white) 0%, var(--clr-text-white) 15%,
+            transparent 15%, transparent 42.5%,
+            var(--clr-text-white) 42.5%, var(--clr-text-white) 57.5%,
+            transparent 57.5%, transparent 85%,
+            var(--clr-text-white) 85%, var(--clr-text-white) 100%
+        );
+        transition: transform 0.2s ease, background 0.1s ease;
+    }
+
+    /* --- 2. THE ACTIVE FULLSCREEN DRAWER CONFIGURATION --- */
+    /* When active, we re-inject the main navigation element with full viewport authority */
+    body.mobile-menu-active .main-navigation {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between; /* Pushes links up top, contact button to bottom */
+        
+        position: fixed;
+        top: 64px; /* Rests precisely below header layout height boundary */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 64px);
+        background-color: var(--clr-teal-bg);
+        z-index: 999;
+        padding: 32px 24px 56px 24px; /* Generous bottom spacing for phone safety zones */
+        box-sizing: border-box;
+    }
+
+    body.mobile-menu-active .nav-links-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        list-style: none;
+    }
+
+    body.mobile-menu-active .nav-links-list li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* The Link Line: Built as a sprawling structural block row wrapper asset */
+    body.mobile-menu-active .nav-anchor {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 16px 0;
+        margin-top: -30px;
+        font-size: 19px;
+        font-weight: 500;
+        color: var(--clr-text-white);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    /* --- ACTIVE STATE INTERACTIONS --- */
+    /* Instant tint switch to your signature mint green when active or pressed */
+    body.mobile-menu-active .nav-anchor.active-anchor,
+    body.mobile-menu-active .nav-anchor:active {
+        color: var(--clr-mint-accent) !important;
+    }
+
+    /* Right chevron indicator icon tracking */
+    body.mobile-menu-active .nav-anchor::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-top: 2px solid rgba(255, 255, 255, 0.6);
+        border-right: 2px solid rgba(255, 255, 255, 0.6);
+        transform: rotate(45deg);
+        transition: border-color 0.2s ease;
+    }
+
+    body.mobile-menu-active .nav-anchor.active-anchor::after {
+        border-color: var(--clr-mint-accent);
+    }
+
+    /* --- 3. RE-INJECTING CONTACT BUTTON ON DRAWER FOOTER BASELINE --- */
+    /* We build a dedicated button wrapper inside the main-navigation block for mobile */
+    body.mobile-menu-active .main-navigation::after {
+        content: 'Contact Us';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 54px;
+        background-color: var(--clr-mint-accent);
+        color: var(--clr-teal-bg);
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.1s ease;
+    }
+    
+    body.mobile-menu-active .main-navigation::after:active {
+        transform: scale(0.98); /* Tactile press state feedback on mobile devices */
+    }
+
+    /* --- 4. HAMBURGER TO CLOSE ICON STRUCTURAL TRANSITION --- */
+    body.mobile-menu-active .header-inner::after {
+        background: transparent; /* Drops center lines */
+        transform: rotate(45deg);
+        height: 24px;
+        width: 24px;
+        /* Custom layout execution of a clean, vector "✕" close button grid */
+        background-image: 
+            linear-gradient(to right, var(--clr-text-white) 0%, var(--clr-text-white) 100%),
+            linear-gradient(to bottom, var(--clr-text-white) 0%, var(--clr-text-white) 100%);
+        background-position: center center;
+        background-size: 100% 2px, 2px 100%;
+        background-repeat: no-repeat;
+    }
+
+  
+
+    /* 1. SECTION VIEWPORT CONTAINER RESET */
+    .about-viewport-section {
+        background-color: #FFFFFF !important;
+        padding: 48px 0 !important;
+        height: auto !important; /* Prevents text or cards from spilling out */
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    /* Locks layout securely within your preferred 390px mobile canvas bounds */
+    .about-viewport-section .site-container {
+        width: 100% !important;
+        max-width: 390px !important;
+        padding-left: 22px !important; /* Your signature canvas margins */
+        padding-right: 22px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. HEADER TYPOGRAPHY CONFIGURATION */
+    .about-section-header {
+        text-align: center !important;
+        margin-bottom: 32px !important;
+        width: 100% !important;
+        float: none !important;
+        position: relative !important;
+    }
+
+    .about-main-title {
+        font-size: 28px !important;
+        font-weight: 700 !important;
+        color: #000000 !important;
+        margin: 0 0 12px 0 !important;
+    }
+
+    .about-header-lead {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #7A7A7A !important;
+        margin: 0 !important;
+        padding: 0 8px !important;
+    }
+
+    /* Strips desktop formatting to let sentences flow fluidly on mobile screens */
+    .about-header-lead br,
+    .concept-card-title br,
+    .concept-card-body br {
+        display: none !important;
+    }
+
+    /* 3. BENTO RESET: Standardizes layout downward */
+    .about-bento-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important; 
+        width: 100% !important;
+        height:850px;
+        float: none !important;
+        position: relative !important;
+        padding-bottom: 15px;
+    }
+
+    /* 4. MASTER CARD COMPONENT (.concept-feature-card) */
+    .concept-feature-card {
+        background-color: #EBF1F1 !important; /* Pale design canvas background tint */
+        padding: 24px !important;
+        border-radius: 0px !important; /* Completely flat profile */
+        display: flex !important;
+        flex-direction: column !important; /* Vertically flows image -> typography -> button */
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        float: none !important;
+        position: relative !important;
+        margin: 0 0 8px 0 !important;
+        gap: 25px;
+    }
+
+    /* Image Wrapper Frame Container */
+    .concept-image-frame {
+       width: 311px;
+       height: 297px;
+       overflow: hidden;
+       background: transparent;
+    }
+
+    /* 📐 D'NESTA SIGNATURE ASYMMETRIC PICTURE CLIP */
+    .concept-display-img {
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        object-fit: cover !important; /* Keeps whole picture aspect ratio perfectly intact without clipping */
+        
+    }
+
+    .concept-content-block {
+        width: 100% !important;
+        padding-top: -500px !important;
+        text-align: left !important;
+    }
+
+    .concept-card-title .title-row {
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        color: #000000 !important;
+        display: block !important;
+        margin: 0 0 16px 0 !important;
+    }
+
+    .concept-card-body {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #333333 !important;
+        margin: 0 0 24px 0 !important;
+    }
+
+    /* Flat Square Dark Pine Green CTA Button Link */
+    .concept-content-block .btn-secondary-cta {
+        display: inline-block !important;
+        background-color: #0E383A !important;
+        color: #FFFFFF !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        padding: 12px 24px !important;
+        text-decoration: none !important;
+        border-radius: 0px !important;
+        text-align: center !important;
+        width: max-content !important;
+    }
+
+    /* 5. METRICS INTERFACES MATRIX GRID (.metrics-grid-aside) */
+   .metrics-grid-aside {
+        display: flex !important;
+        flex-wrap: wrap !important; 
+        column-gap: 12px !important;      
+        row-gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        float: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important; 
+        min-height: 0 !important;
+        max-height: none !important;
+        
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. BASE CARD STYLE DEFAULTS
+       Enforces identical heights across the board while ensuring internal spacing calculations 
+       don't blow out past your assigned widths.
+    */
+    .metric-data-card,
+    .metric-data-card-1,
+    .metric-data-card-2,
+    .metric-data-card-3 {
+        background-color: #EBF1F1 !important;
+        padding: 24px 16px !important;
+        border-radius: 0px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        
+        /* Flex Alignment Requirements */
+        flex-grow: 0 !important;   /* Stops the boxes from growing automatically */
+        flex-shrink: 0 !important; /* Stops the boxes from squeezing inward */
+        box-sizing: border-box !important; /* Critical: keeps padding inside your width limits */
+        height: 110px !important;  /* Forces every single card to share the exact same height */
+    }
+
+    .metric-data-card {
+        width: calc(53% - 6px) !important; 
+    }
+    .metric-data-card-1 {
+        width: calc(47% - 6px) !important; 
+    }
+
+    /* ROW 2: Adjust these two completely independently from the row above! */
+    .metric-data-card-2 {
+        width: calc(61% - 6px) !important; 
+    }
+    .metric-data-card-3 {
+        width: calc(39% - 6px) !important; 
+    }
+
+
+    /* --- TYPOGRAPHY STABILITY OVERRIDES --- */
+    .metric-num-display {
+        font-size: 36px !important;
+        font-weight: 800 !important;
+        color: #0E383A !important;
+        line-height: 1 !important;
+        margin: 0 0 8px 0 !important;
+        display: block !important;
+    }
+
+    .metric-label-display {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        color: #000000 !important;
+        line-height: 1.2 !important;
+        display: block !important;
+        white-space: nowrap !important; /* Keeps the labels cleanly on one line */
+    }
+
+    /* ==========================================================================
+   MOBILE UI RESPONSIVENESS: FOUNDATION SECTION (TEAM DESIGN STYLE MAPPING)
+   ========================================================================== */
+   /* 1. OUTER SECTION VIEWPORT CONTAINER */
+    .foundation-viewport-section {
+        background-color:#E6EFEE !important; 
+        padding: 40px 0 !important;          
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;       
+        display: block !important;
+        padding-top: 400px;
+    }
+
+    .foundation-viewport-section .site-container {
+        width: 100% !important;
+        max-width: 390px !important;       
+        padding-left: 22px !important;      
+        padding-right: 22px !important;
+        margin: 0 auto !important;          
+        box-sizing: border-box !important;  
+        float: none !important;
+        position: relative !important;
+    }
+
+    /* 3. SECTION HEADER TYPOGRAPHY */
+    .foundation-section-header {
+       text-align: center !important;
+        margin-bottom: 32px !important; 
+        padding: 0 22px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+    }
+
+    .foundation-main-title {
+        font-size: 28px !important;
+        font-weight: 700 !important;
+        color: #000000 !important;
+        margin: 0 0 12px 0 !important;
+        
+    }
+
+    .foundation-header-lead {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #000000 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        
+    }
+
+    /* 4. THE ROW CARDS WRAPPER STACK STYLING */
+    .foundation-rows-stack {
+        
+        display: flex !important;
+        flex-direction: column !important;     /* Direct vertical layout stack */
+        gap: 22px !important;                   /* Space layout gap between cards */
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-bottom: 10px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 5. INDIVIDUAL ROW CARD OVERRIDES */
+    .foundation-row-card {
+        display: flex !important;
+        flex-direction: column !important;   /* Force image to stack directly over text */
+        background-color: #FFFFFF !important; /* Crisp white interior panel surface */
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+        
+        /* Destroys desktop grid tracks completely */
+        grid-template-columns: none !important; 
+        
+        /* Deactivates scroll-linked desktop timeline animations entirely */
+        animation: none !important;
+        view-timeline-name: none !important;
+        animation-timeline: none !important;
+    }
+
+    /* 6. IMAGE FRAME & RESPONSIVE LOCK */
+    .foundation-image-block {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 240px !important; /* Clean, dedicated mobile height aspect ratio */
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .foundation-row-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transform: none !important; /* Prevents hover scale data leaking */
+    }
+
+    /* 7. CONTENT BLOCKS AND TYPOGRAPHY DETAILS */
+    .foundation-content-block {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 24px 20px !important; /* Clean, even text breathing space */
+        box-sizing: border-box !important;
+        text-align: left !important;
+    }
+
+    .foundation-card-title {
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        color: #000000 !important;
+        margin: 0 0 12px 0 !important;
+    }
+
+    .foundation-card-body {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #333333 !important;
+        margin: 0 !important;
+    }
+
+    .values-detailed-list li {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        color: #333333 !important;
+    }
+
+    /* ==========================================================================
+   MOBILE UI RESPONSIVENESS: OUR SERVICES PORTABLE SWIPER
+   ========================================================================== */
+/* 1. VIEWPORT & CONTAINER ADJUSTMENTS */
+   .services-viewport-section {
+        background-color: #FFFFFF !important; /* Ensures the header background remains clean white */
+        padding-top: 40px !important;
+        padding-bottom: 0 !important;         /* Handled by the tray below */
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        display: block !important;
+    }
+
+    /* 2. THE TOP CONTAINER (Holds Header Text) */
+    .services-viewport-section > .site-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+        box-sizing: border-box !important;
+    }
+
+    .services-section-header {
+        text-align: center !important;
+        margin-bottom: 32px !important;       /* The exact gap before the color tray begins */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .services-main-title {
+        font-size: 28px !important;
+        font-weight: 700 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .about-header-lead {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #000 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .services-color-tray {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
+    }
+
+    /* Neutralize desktop container limits inside the color tray */
+    .services-color-tray .site-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* 2. THE HORIZONTAL SWIPE TRACK
+       Uses a sharp clip-path so cards disappear cleanly under the 22px left padding.
+    */
+    .services-desktop-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        
+        padding-left: 22px !important;
+        padding-right: 0 !important;
+        scroll-padding-left: 22px !important;
+        
+        gap: 16px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        
+        /* Razor-sharp edge: cuts off any scrolled content before the 22px padding mark */
+        clip-path: inset(0 0 0 22px) !important; 
+        
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+    }
+
+    .services-desktop-grid::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    /* Creates a trailing padding spacer on the far right of the scroll track */
+    .services-desktop-grid::after {
+        content: '' !important;
+        flex: 0 0 22px !important;
+        display: block !important;
+    }
+
+    /* 3. THE CARD MECHANICS (Perfect Mirror of your Desktop Logic) */
+    .service-custom-card {
+        flex: 0 0 78% !important; /* Width is 78% of mobile viewport */
+        scroll-snap-align: start !important;
+        padding: 32px 30px !important; /* Mobile-optimized card padding */
+        
+        /* Keep your exact desktop aspect-ratio and clip-path */
+        aspect-ratio: 1 / 1 !important; 
+        clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px) !important;
+        
+        /* Clear desktop hover transforms */
+        transform: none !important;
+        margin: 0 !important;
+    }
+
+    /* When expanded by your JS, break the aspect-ratio exactly like on desktop */
+    .service-custom-card.is-expanded-card {
+        aspect-ratio: auto !important; /* Forces the card height to transition smoothly with the text wrapper */
+    }
+
+    /* 4. INNER CARD TEXT WRAPPER
+       Maintains your desktop's exact cubic-bezier timing of 0.4s.
+    */
+    .service-expand-wrapper {
+        max-height: 48px; /* No !important: allows JS inline styles to scale it */
+        overflow: hidden !important;
+        margin-bottom: 16px !important;
+        
+        /* Match your desktop timing and JS 400ms delay perfectly */
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        will-change: max-height;
+
+        /* 🎯 THE SMOOTHNESS FIX: Forces the browser to handle the animation on the GPU */
+        -webkit-backface-visibility: hidden !important;
+        backface-visibility: hidden !important;
+        transform: translate3d(0, 0, 0) !important;
+    }
+
+    /* 5. TYPOGRAPHY & ASSETS */
+    .service-vector {
+        height: 55px !important; 
+        width: auto !important;
+        transform: none !important; 
+    }
+
+    .service-card-title {
+        font-size: 22px !important;
+        margin-bottom: 10px !important;
+        margin-top: 6px;
+    }
+
+    .service-card-body-text {
+       font-size: 15px !important;
+        
+        /* 🎯 THE RIGID LINE HEIGHT FIX: Use a fixed pixel-based height (13px * 1.45 ≈ 19px) */
+        line-height: 20px !important; 
+        
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        /* 🎯 PREVENTS MOTION BLUR: Keeps text sub-pixels from moving during rendering */
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+    }
+
+    .btn-service-toggle {
+        font-size: 14px !important;
+        margin-top: 12px !important;
+    }
+   
+
+
+   
+
+    
+}
