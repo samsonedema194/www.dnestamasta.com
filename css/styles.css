@@ -404,6 +404,8 @@ body {
     height: 297px;
     overflow: hidden;
     background: transparent;
+    margin: 0 !important;
+    clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
 }
 
 .concept-display-img {
@@ -903,16 +905,17 @@ body {
 /* ARCHITECTURAL CLIPPED IMAGING PROFILE FRAME */
 .team-image-frame {
     width: 100%;
+    height: auto; /* 🎯 Let the container height adapt to the image */
     overflow: hidden;
     margin-bottom: 24px;
-    margin-left: -20px;
-    background: transparent; /* No background color needed so your PNGs sit clean */
+    margin-left: 0; /* ❌ Removed the -20px margin */
+    background: transparent;
+    clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
 }
 
 .team-portrait-img {
     width: 100%;
-    height: 100%;
-    object-fit: contain; /* Changed to contain so pre-masked edges don't get cropped */
+    height: auto; 
     display: block;
     transition: transform 0.4s ease;
 }
@@ -927,8 +930,10 @@ body {
     display: flex;
     flex-direction: column;
     padding-bottom: 16px;
-    margin-left: -19px;
-    border-bottom: 1.1px solid #000000; /* ACCENT LINE BAR */
+    margin-left: 0; 
+    border-bottom: 1.1px solid #000000;
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .team-member-name {
@@ -1042,6 +1047,7 @@ body {
     height: 303px;
     overflow: hidden;
     background: transparent;
+    clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
 }
 
 .project-card-img {
@@ -2587,6 +2593,7 @@ body.lightbox-open {
        height: 297px;
        overflow: hidden;
        background: transparent;
+       clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
     }
 
     /* 📐 D'NESTA SIGNATURE ASYMMETRIC PICTURE CLIP */
@@ -2851,7 +2858,7 @@ body.lightbox-open {
 /* 1. VIEWPORT & CONTAINER ADJUSTMENTS */
    .services-viewport-section {
         background-color: #FFFFFF !important; /* Ensures the header background remains clean white */
-        padding-top: 40px !important;
+        padding-top: 80px !important;
         padding-bottom: 0 !important;         /* Handled by the tray below */
         width: 100% !important;
         max-width: 100% !important;
@@ -2908,6 +2915,7 @@ body.lightbox-open {
     */
     .services-desktop-grid {
         display: flex !important;
+        position: relative !important;
         flex-direction: row !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
@@ -3008,10 +3016,789 @@ body.lightbox-open {
         font-size: 14px !important;
         margin-top: 12px !important;
     }
-   
+
+    .services-scroll-indicator {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 24px;
+        width: 100%;
+    }
+
+    /* 2. THE BASE DOT DESIGN */
+    .indicator-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.4); /* Subdued light green/white against deep green */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+
+    /* 3. THE ACTIVE DOT DESIGN (Turns full bright white and stretches slightly) */
+    .indicator-dot.active {
+        background-color: #154244;
+        width: 18px; /* Subtle stretch effect to show active position */
+        border-radius: 4px;
+    }
+
+    /* ==========================================================================
+   TEAM SECTION - MOBILE MEDIA QUERY
+   ========================================================================== */
+   .team-viewport-section {
+        padding-top: 80px !important;
+        padding-bottom: 0 !important;
+        width: 100% !important;
+        overflow: hidden !important; /* Prevents horizontal page spilling */
+    }
+    .team-viewport-section > .site-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+        box-sizing: border-box !important;
+    }
 
 
-   
+    /* 2. FORCE COLOR TRAY TO FILL THE MOBILE VIEWPORT EXCLUSIVELY */
+    .team-color-tray {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
+        width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. SNAP CONTAINER TO THE PHONE GLASS EDGES */
+    .team-color-tray .site-container {
+        width: 100% !important;
+        max-width: 100% !important; /* Completely overrides desktop constraints */
+        padding-left: 22px !important; /* Safe margin from the left edge */
+        padding-right: 22px !important; /* Safe margin from the right edge */
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Centers the card deck within the phone borders */
+    }
+
+    /* 4. DEFINE CRISP CARD WIDTHS RELATIVE TO MOBILE VIEWPORT */
+    .team-desktop-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        width: 100% !important;
+        max-width: 340px !important; /* Perfect standard sizing for phone displays */
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    /* 5. PORTRAIT CARD DESIGN */
+    .team-profile-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 16px 22px !important;
+        transform: none !important;
+        box-sizing: border-box !important;
+    }
+    
+    .team-image-frame {
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important; 
+        margin-bottom: 16px !important;
+        clip-path: polygon(30px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 30px) 100%, 0% 100%, 0% 20px) !important;
+    }
+
+    .team-portrait-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
 
     
+    .team-section-header {
+        margin-bottom: 32px !important;
+        padding: 0 22px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+    }
+
+    .team-main-title {
+        font-size: 28px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .team-header-lead {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        width: 100% !important;
+        color: #000 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .team-meta-details {
+        padding-bottom: 12px !important;
+    }
+
+    .team-member-name {
+        font-size: 16px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .team-member-role {
+        font-size: 13px !important;
+    }
+
+   /* ==========================================================================
+   PROJECTS SECTION (MOBILE & RESPONSIVE)
+   ========================================================================== */
+
+.projects-viewport-section {
+    background-color: #FFFFFF !important;
+    padding-top: 80px !important;
+    padding-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    display: block !important;
+}
+
+.projects-viewport-section > .site-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+    box-sizing: border-box !important;
+}
+
+.projects-section-header {
+    text-align: center !important;
+    margin-bottom: 32px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.projects-main-title {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    margin: 0 0 12px 0 !important;
+}
+
+.projects-header-lead {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+}
+
+.projects-color-tray {
+    background-color: #BCD2D3 !important; 
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.slider-outer-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 32px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* SLIDER CONTAINERS */
+.projects-slider-window {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important; /* Clips card 2 sideways */
+    position: relative !important;
+    touch-action: pan-y !important; /* Allows vertical scrolling while enabling side swipe */
+}
+
+.projects-slider-track {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    will-change: transform;
+}
+
+.project-display-card {
+    flex: 0 0 100% !important; 
+    min-width: 100% !important;
+    max-width: 100% !important;
+    background-color: #FFFFFF !important;
+    padding: 20px !important;
+    border-radius: 0px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+/* CARD INNER ELEMENTS */
+.project-image-frame {
+    display: block !important;
+    width: 100% !important;
+    height: 190px !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
+}
+
+.project-card-img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+}
+
+.project-info-block {
+    width: 100% !important;
+    text-align: left !important;
+    margin-left: -2px;
+}
+
+.project-tag {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-bottom: 8px !important;
+}
+
+.project-card-title {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    margin-bottom: 12px !important;
+}
+
+.project-card-body {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 20px !important;
+}
+
+.project-meta-data {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.meta-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 12px !important;
+}
+
+.btn-project-link {
+    display: inline-block !important;
+    width: auto !important;
+    padding: 12px 24px !important;
+    font-size: 14px !important;
+    border-radius: 0px !important;
+    background-color: #1E3E3B !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+/* NAVIGATION & DOTS */
+.slider-nav-container {
+    display: none !important;
+}
+
+.slider-dots-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 0px !important; /* Fixed empty px syntax */
+    width: 100% !important;
+}
+
+.slider-dots-container .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(30, 62, 59, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+}
+
+.slider-dots-container .dot.active {
+    width: 18px;
+    border-radius: 20px;
+    background-color: #154244;
+}
+
+.projects-slider-window {
+    width: 100% !important;
+    overflow-x: auto !important; /* Enables horizontal trackpad/touch scrolling */
+    scroll-snap-type: x mandatory !important; /* Snaps perfectly card by card */
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important; /* Hides scrollbar on Firefox */
+}
+
+/* Hide scrollbar on Chrome, Safari, and Edge */
+.projects-slider-window::-webkit-scrollbar {
+    display: none !important;
+}
+
+.projects-slider-track {
+    display: flex !important;
+    width: 100% !important;
+}
+
+.project-display-card {
+    flex: 0 0 100% !important;
+    min-width: 100% !important;
+    scroll-snap-align: start !important; /* Forces card to align to the window edge */
+}
+
+   /* ==========================================================================
+FAQ SECTION (MOBILE & RESPONSIVE)
+   ========================================================================== */
+
+.faq-viewport-section {
+    background-color: #FFFFFF !important;
+    padding-top: 80px !important;
+    padding-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    display: block !important;
+}
+
+.faq-viewport-section > .site-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+    box-sizing: border-box !important;
+}
+
+.faq-section-header {
+    text-align: center !important;
+    margin-bottom: 32px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.faq-main-title {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    margin: 0 0 12px 0 !important;
+}
+
+.faq-header-lead {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+}
+
+.faq-color-tray {
+    background-color: #BCD2D3 !important; 
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    padding-left: 22px;
+    padding-right: 22px;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.faq-dual-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important; /* Overrides site-container constraints */
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Accordion Stack */
+.faq-accordion-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+}
+
+.faq-accordion-item {
+    width: 100% !important;
+    background-color: #FFFFFF !important;
+    border-radius: 0px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    box-sizing: border-box !important;
+}
+
+/* Trigger Bar Button */
+.faq-trigger-bar {
+    width: 100% !important;
+    height: 58px;
+    background: none !important;
+    border: none !important;
+    padding-left: 2px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    gap: 16px !important;
+    box-sizing: border-box !important; /* Fixes padding overflow */
+}
+
+.faq-question-text {
+    font-size: 14px !important;
+    font-weight: 150px !important;
+    color: #101010 !important;
+    line-height: 1.2 !important;
+}
+
+/* Status Icon (+ / × indicator) */
+.faq-status-icon {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    flex-shrink: 0;
+    
+}
+
+/* Render CSS '+' icon */
+.faq-status-icon::before,
+.faq-status-icon::after {
+    content: '';
+    position: absolute;
+    background-color: #101010;
+    transition: transform 0.3s ease;
+}
+
+.faq-status-icon::before {
+    top: 6px;
+    left: 0;
+    width: 14px;
+    height: 1.5px;
+}
+
+.faq-status-icon::after {
+    top: 0;
+    left: 6px;
+    width: 1.5px;
+    height: 14px;
+}
+
+/* Rotate '+' into '×' when expanded */
+.faq-accordion-item.active .faq-status-icon::after {
+    transform: rotate(90deg);
+}
+
+.faq-accordion-item.active .faq-status-icon {
+    transform: rotate(0deg);
+}
+
+/* Accordion Expand Panel */
+.faq-panel-expand {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+}
+
+.faq-accordion-item.active .faq-panel-expand {
+    max-height: 300px; /* Expands to accommodate content */
+    transition: max-height 0.35s ease-in-out;
+}
+
+.faq-panel-content {
+    padding: 0 20px 20px 18px !important;
+}
+
+.faq-panel-content p {
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    color: #666666 !important;
+    margin: 0 !important;
+}
+
+/* Billboard CTA Card */
+.faq-billboard-card {
+    background-color: #FFFFFF !important;
+    padding: 32px 24px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.faq-billboard-icon-wrapper {
+    margin-bottom: 16px !important;
+}
+
+.faq-chat-custom-icon {
+    width: 40px;
+    height: auto;
+    display: block;
+}
+
+.faq-billboard-title {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #101010 !important;
+    line-height: 1.25 !important;
+    margin-bottom: 12px !important;
+}
+
+.faq-billboard-text {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #555555 !important;
+    margin-bottom: 24px !important;
+}
+
+.btn-faq-billboard-cta {
+    display: inline-block !important;
+    background-color: #154244 !important;
+    color: #FFFFFF !important;
+    padding: 16px 28px !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   CTA BANNER SECTION STYLES
+   ========================================================================== */
+
+.cta-banner-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 80px 0 !important;
+    
+    background-color: #FFFFFF !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.cta-banner-section > .site-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Gradient Container Card */
+.cta-gradient-card {
+    background: linear-gradient(135deg, #50C878 0%, #348E7B 35%, #185253 75%, #123D3F 100%) !important;
+    padding: 40px 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Inner Centered Wrapper */
+.cta-content-wrapper {
+    max-width: 520px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* Section Title */
+.cta-master-title {
+    color: #FFFFFF !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+    margin-bottom: 16px !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Lead Paragraph */
+.cta-description-text {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    margin: 0 0 28px 0 !important;
+    font-weight: 400 !important;
+}
+
+/* Button Container */
+.cta-action-block {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+/* Solid White Mail Button */
+.btn-banner-mail-cta {
+    display: inline-block !important;
+    background-color: #FFFFFF !important;
+    color: #154244 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em !important;
+    padding: 16px 32px !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    transition: background-color 0.2s ease, transform 0.2s ease !important;
+    border-radius: 0px !important;
+    box-sizing: border-box !important;
+}
+
+.btn-banner-mail-cta:hover {
+    background-color: #F0F0F0 !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   FOOTER SECTION MOBILE STYLES
+   ========================================================================== */
+/* ==========================================================================
+   FOOTER SECTION STYLES
+   ========================================================================== */
+
+/* Fixed: Added missing dot (.) before class name */
+.site-footer-wrapper {
+    background-color: #123D3F !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    padding: 40px 0 40px 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.site-footer-wrapper > .site-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+
+/* Metadata Vertical Stack on Mobile */
+.footer-meta-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    gap: 28px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0px;
+}
+
+.footer-grid-col {
+    text-align: left !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.footer-grid-col p {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+/* Inline Links */
+.footer-inline-links {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+}
+
+.footer-inline-links a,
+.footer-interactive-link {
+    color: rgba(255, 255, 255, 0.75) !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    transition: color 0.2s ease !important;
+}
+
+.footer-inline-links a:hover,
+.footer-interactive-link:hover {
+    color: #50C878 !important;
+}
+
+/* Divider Line */
+.footer-structural-divider {
+    border: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+    margin: 32px 0 32px 0 !important;
+    width: 100% !important;
+}
+
+/* Branding & Logo Block */
+.footer-branding-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.footer-brand-anchor {
+    width: 100% !important;
+    max-width: 280px !important;
+    margin-bottom: 12px !important;
+}
+
+.footer-brand-logo-img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+.footer-tagline-text {
+    font-size: 13px !important;
+    color: #50C878 !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* Fixed: Wrapped inside @media query and added missing dot (.) */
+@media (min-width: 768px) {
+    .footer-meta-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 24px !important;
+    }
+
+    .footer-brand-anchor {
+        max-width: 360px !important;
+    }
+}
+
+
+
 }

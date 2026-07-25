@@ -480,3 +480,113 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// HORIZONTAL CAROUSEL DOT INDICATOR TRACKING
+document.addEventListener("DOMContentLoaded", () => {
+    const mobileCards = document.querySelectorAll('.service-custom-card');
+    const dots = document.querySelectorAll('.indicator-dot');
+    const gridContainer = document.querySelector('.services-desktop-grid');
+
+    if (gridContainer && dots.length > 0) {
+        
+        gridContainer.addEventListener('scroll', () => {
+            const scrollLeft = gridContainer.scrollLeft;
+            const maxScroll = gridContainer.scrollWidth - gridContainer.clientWidth;
+            
+            if (maxScroll <= 0) return;
+
+            // Calculate exact progress percentage (0 to 1)
+            const scrollPercent = scrollLeft / maxScroll;
+            const totalSlides = dots.length;
+            
+            // Map percentage cleanly to dot indices [0, 1, 2, 3]
+            const activeIndex = Math.min(
+                Math.round(scrollPercent * (totalSlides - 1)), 
+                totalSlides - 1
+            );
+            
+            // Toggle active classes on dots
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }, { passive: true });
+
+        // Let users tap a dot to scroll directly to that card
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                const targetCard = mobileCards[index];
+                if (targetCard) {
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'start'
+                    });
+                }
+            });
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sliderWindow = document.querySelector('.projects-slider-window');
+    const cards = document.querySelectorAll('.project-display-card');
+    const dots = document.querySelectorAll('.slider-dots-container .dot');
+
+    if (!sliderWindow || cards.length === 0 || dots.length === 0) return;
+
+    // 1. Listen for trackpad / touch swipe scroll events
+    sliderWindow.addEventListener('scroll', () => {
+        const cardWidth = sliderWindow.clientWidth;
+        // Calculate index based on how far user has scrolled
+        const activeIndex = Math.round(sliderWindow.scrollLeft / cardWidth);
+
+        // Update active dot indicator
+        dots.forEach((dot, index) => {
+            if (index === activeIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    });
+
+    // 2. Allow clicking dots directly to navigate
+    dots.forEach((dot) => {
+        dot.addEventListener('click', (e) => {
+            const index = parseInt(e.target.getAttribute('data-index'));
+            const cardWidth = sliderWindow.clientWidth;
+
+            sliderWindow.scrollTo({
+                left: cardWidth * index,
+                behavior: 'smooth'
+            });
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const accordionItems = document.querySelectorAll('.faq-accordion-item');
+
+    accordionItems.forEach((item) => {
+        const trigger = item.querySelector('.faq-trigger-bar');
+
+        trigger.addEventListener('click', () => {
+            const isOpen = item.classList.contains('active');
+
+            // Close other open accordion items (optional for single accordion mode)
+            accordionItems.forEach((otherItem) => {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.faq-trigger-bar').setAttribute('aria-expanded', 'false');
+            });
+
+            // Toggle selected item
+            if (!isOpen) {
+                item.classList.add('active');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+});
