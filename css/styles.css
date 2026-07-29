@@ -80,6 +80,13 @@
 }
 
 /* ==========================================================================
+   GLOBAL BOX-SIZING RESET
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
    3. GLOBAL MASTER RESET & GROUND RULES
    ========================================================================== */
 *, *::before, *::after {
@@ -143,7 +150,7 @@ body {
 .site-header {
     background-color: var(--clr-teal-bg);
     width: 100%;
-    height: 112px; /* Fixed premium desktop rhythm height */
+    height: 82px; /* Fixed premium desktop rhythm height */
     display: flex;
     align-items: center;
     position: fixed;
@@ -400,7 +407,7 @@ body {
 }
 
 .concept-image-frame {
-    width: 311px;
+    width: auto;
     height: 297px;
     overflow: hidden;
     background: transparent;
@@ -514,7 +521,7 @@ body {
     border-radius: 0px;
     padding-top: 26px;
     padding-bottom: 26px ;
-    padding-left: 21px ;
+    padding-left: 29px ;
     padding-right: 111px;
     display: flex;
     flex-direction: column;
@@ -538,7 +545,7 @@ body {
     border-radius: 0px;
     padding-top: 26px;
     padding-bottom: 26px ;
-    padding-left: 21px ;
+    padding-left: 29px ;
     padding-right: 58px;
     display: flex;
     flex-direction: column;
@@ -947,8 +954,8 @@ body {
 
 .team-member-role {
     color: #555555;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 520;
     line-height: 1.4;
 }
 
@@ -1125,10 +1132,10 @@ body {
     font-size: 13px;
     font-weight: 700;
     height: 43px;
-    width: 144px;
     padding-top: 13px;
     padding-bottom: 13px;
     padding-left: 18px;
+    padding-right: 18px;
     border-radius: 0px;
     align-self: flex-start;
     transition: background-color 0.2s ease;
@@ -1210,6 +1217,7 @@ body {
     padding-top: 80px;
     padding-bottom: 120px;
     
+    
     /* Viewport Tracking Anchor */
     view-timeline-name: --faqTimeline;
     view-timeline-axis: block;
@@ -1258,7 +1266,7 @@ body {
     background: transparent;
     border: none;
     outline: none;
-    padding: 32px 32px;
+    padding: 31px 31px;
     margin-left: 15px;
     display: flex;
     justify-content: space-between;
@@ -1270,7 +1278,7 @@ body {
 .faq-question-text {
     color: var(--clr-dark-heading);
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: -0.01em;
     padding-right: 24px;
 }
@@ -1338,7 +1346,7 @@ body {
 }
 
 .faq-panel-content {
-    padding: 0 32px 28px 32px;
+    padding: 0 43px 28px 43px;
 }
 
 .faq-panel-content p {
@@ -1831,10 +1839,6 @@ body {
     }
 }
 
-/* ==========================================================================
-   PREVIEW LIGHTBOX MODAL SYSTEM
-   ========================================================================== --> */
-
    /* ==========================================================================
    PREVIEW LIGHTBOX MODAL SYSTEM (FIXED SCALING & RESOLUTION)
    ========================================================================== */
@@ -2007,7 +2011,7 @@ body.lightbox-open {
     width: 100%;
     height: 100%;
     object-fit: cover; 
-    border-radius: 8px;
+    border-radius: 0px;
     background-color: #000000;
     aspect-ratio: 3 / 2;
 }
@@ -2140,7 +2144,7 @@ body.lightbox-open {
         left: 25px; 
         font-size: 26px; 
     }
-
+}
 
 .video-card {
     position: relative;
@@ -2189,9 +2193,94 @@ body.lightbox-open {
 
 #lightbox-target-video {
     width: 100%;
-    height: 980px;
+    height: auto;
     max-width: 100%;
-    max-height: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+    border-radius: 0px;
+    outline: none;
+    transform: scale(0.96);
+    transition: transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.lightbox-overlay.is-visible #lightbox-target-video {
+    transform: scale(1);
+}
+
+@media (max-width: 768px) {
+    .lightbox-content {
+        max-height: 60vh;
+        padding: 0 10px;
+    }
+    .lightbox-arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+    .arrow-left { 
+        left: 15px; 
+    }
+    .arrow-right { 
+        right: 15px; 
+    }
+    .lightbox-close { 
+        top: 25px; 
+        left: 25px; 
+        font-size: 26px; 
+    }
+
+
+.video-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 8px;
+    background-color: #000000;
+    aspect-ratio: 3 / 2;
+    transition: transform 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.video-card:hover video {
+    transform: scale(1.05);
+}
+
+.video-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 56px;
+    height: 56px;
+    background-color: rgba(74, 210, 149, 0.9);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 24px;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.215, 0.610, 0.355, 1), background-color 0.3s ease;
+    z-index: 2;
+}
+
+.video-card:hover::after {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: #FFFFFF;
+}
+
+#lightbox-target-video {
+width: 100%;
+    height: auto !important;
+    max-width: 100%;
+    max-height: 70vh !important;
     object-fit: contain;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
     border-radius: 4px;
@@ -2234,128 +2323,6 @@ body.lightbox-open {
     height: 26px;
 }
 
-
-    /* Inject the custom ham burger icon on the right margin edge */
-    .header-inner::after {
-        content: '';
-        width:27px;
-        height: 21px;
-        display: block;
-        cursor: pointer;
-        /* Dynamic 3-line pure CSS asset generation matching your frame */
-        background: linear-gradient(
-            to bottom,
-            var(--clr-text-white) 0%, var(--clr-text-white) 15%,
-            transparent 15%, transparent 42.5%,
-            var(--clr-text-white) 42.5%, var(--clr-text-white) 57.5%,
-            transparent 57.5%, transparent 85%,
-            var(--clr-text-white) 85%, var(--clr-text-white) 100%
-        );
-    }
-
-    /* --- 2. HERO COMPONENT TYPOGRAPHY & BOX MODEL --- */
-    .hero-viewport-section {
-        padding-top: 48px;
-        padding-bottom: 64px; /* Room for the overlapping badge edge */
-        background-color: #FFFFFF;
-    }
-
-    .hero-viewport-section .site-container {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-
-    .hero-master-headline {
-        font-size: 22px;
-        font-weight: 700;
-        line-height: 1.2;
-        letter-spacing: -0.02em;
-        text-align: center;
-        color: var(--clr-dark-heading);
-        margin-bottom: 16px;
-        margin-top: -49px;
-        display: block; /* Allows natural text wrapping */
-    }
-
-    /* --- 3. HERO IMAGE FRAME & OVERLAPPING METRIC BADGE --- */
-    .hero-inner-layout {
-        position: relative;
-        width: 100%;
-    }
-
-    .hero-asset-frame {
-        width: 100%;
-        height: 192px; /* Proportional smartphone crop height */
-        border-radius: 16px;
-        overflow: visible; /* Permits badge extension below the crop frame boundary */
-    }
-
-    .hero-main-display {
-        width: 100%;
-        height: 100%;
-        border-radius: 0px;
-        object-fit: cover;
-        object-position: center center;
-    }
-
-    
-
-    /* Absolute Bottom-Center Floating Logic matching your design layout */
-    .metric-accent-badge {
-        position: absolute;
-        bottom: -28px; /* Pulled exactly halfway outside the lower bounds of the image */
-        left: 50%;
-        transform: translateX(-50%);
-        right: auto;
-        margin: 0 !important;
-        
-        background-color: var(--clr-mint-accent);
-        width: calc(100% - 72px); /* Uniform inner side margins inside the container bounds */
-        max-width: 166px;
-        height: 48px;
-        padding: 0 24px;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.06);
-        border-radius: 0px; /* Kept straight as per core design language tokens */
-        z-index: 10;
-    }
-
-    .metric-num {
-        font-size: 20px;
-        font-weight: 800;
-        color: var(--clr-text-white);
-        letter-spacing: -0.02em;
-        line-height: 1;
-    }
-
-    .metric-label-block {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: left;
-        line-height: 1.1;
-    }
-
-    .label-meta-top {
-        font-size: 8px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-        color: var(--clr-dark-meta);
-    }
-
-    .label-meta-bold {
-        font-size: 14px;
-        font-weight: 900;
-        letter-spacing: -0.01em;
-        color: var(--clr-dark-meta);
-    }
-
-
 /* --- 1. SITE HEADER LAYOUT SANITIZATION --- */
     .site-header {
         height: 64px;
@@ -2384,7 +2351,11 @@ body.lightbox-open {
         display: none !important;
     }
 
-    /* Re-inject clean, explicit hamburger element tracking on the right */
+    /* 
+    ==========================================================================
+    Re-inject clean, explicit Hamburger element tracking on the right 
+    ==========================================================================
+    */
     .site-header .header-inner::after {
         content: '';
         width: 27px;
@@ -2507,12 +2478,138 @@ body.lightbox-open {
         background-repeat: no-repeat;
     }
 
+
+    /* Inject the custom Hamburger icon on the right margin edge */
+    .header-inner::after {
+        content: '';
+        width:27px;
+        height: 21px;
+        display: block;
+        cursor: pointer;
+        /* Dynamic 3-line pure CSS asset generation matching your frame */
+        background: linear-gradient(
+            to bottom,
+            var(--clr-text-white) 0%, var(--clr-text-white) 15%,
+            transparent 15%, transparent 42.5%,
+            var(--clr-text-white) 42.5%, var(--clr-text-white) 57.5%,
+            transparent 57.5%, transparent 85%,
+            var(--clr-text-white) 85%, var(--clr-text-white) 100%
+        );
+    }
+
+    /* --- 2. HERO COMPONENT TYPOGRAPHY & BOX MODEL --- */
+    .hero-viewport-section {
+        padding-top: 48px;
+        padding-bottom: 64px; /* Room for the overlapping badge edge */
+        background-color: #FFFFFF;
+    }
+
+    .hero-viewport-section .site-container {
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 60px;
+    }
+
+    .hero-master-headline {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: var(--clr-dark-heading);
+        margin-bottom: 16px;
+        display: block; /* Allows natural text wrapping */
+    }
+
+    /* --- 3. HERO IMAGE FRAME & OVERLAPPING METRIC BADGE --- */
+    .hero-inner-layout {
+        position: relative;
+        width: 100%;
+    }
+
+    .hero-asset-frame {
+        width: 100%;
+        height: 192px; /* Proportional smartphone crop height */
+        border-radius: 0px;
+        overflow: hidden; /* Permits badge extension below the crop frame boundary */
+    }
+
+    .hero-main-display {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    
+
+    /* Absolute Bottom-Center Floating Logic matching your design layout */
+    .metric-accent-badge {
+        position: absolute;
+        bottom: -28px; /* Pulled exactly halfway outside the lower bounds of the image */
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+        margin: 0 !important;
+        
+        background-color: var(--clr-mint-accent);
+        width: calc(100% - 72px); /* Uniform inner side margins inside the container bounds */
+        max-width: 186px;
+        height: 54px;
+        padding: 0 24px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.06);
+        border-radius: 0px; /* Kept straight as per core design language tokens */
+        z-index: 10;
+    }
+
+    .metric-num {
+        font-size: 30px;
+        font-weight: 800;
+        color: var(--clr-text-white);
+        letter-spacing: -0.02em;
+        line-height: 1;
+    }
+
+    .metric-label-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        line-height: 1.1;
+    }
+
+    .label-meta-top {
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        color: var(--clr-dark-meta);
+    }
+
+    .label-meta-bold {
+        font-size: 16px;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        color: var(--clr-dark-meta);
+    }
+
+
   
 
-    /* 1. SECTION VIEWPORT CONTAINER RESET */
+    /* 
+    ==========================================================================
+    1. SECTION VIEWPORT CONTAINER RESET 
+    ==========================================================================
+    */
     .about-viewport-section {
         background-color: #FFFFFF !important;
-        padding: 48px 0 !important;
+        padding: 40px 0 !important;
         height: auto !important; /* Prevents text or cards from spilling out */
         overflow: visible !important;
         display: block !important;
@@ -2589,7 +2686,7 @@ body.lightbox-open {
 
     /* Image Wrapper Frame Container */
     .concept-image-frame {
-       width: 311px;
+       width: auto;
        height: 297px;
        overflow: hidden;
        background: transparent;
@@ -2634,90 +2731,88 @@ body.lightbox-open {
         color: #FFFFFF !important;
         font-size: 14px !important;
         font-weight: 700 !important;
-        padding: 12px 24px !important;
+        padding: 16px 28px !important;
         text-decoration: none !important;
         border-radius: 0px !important;
         text-align: center !important;
         width: max-content !important;
     }
 
-    /* 5. METRICS INTERFACES MATRIX GRID (.metrics-grid-aside) */
-   .metrics-grid-aside {
-        display: flex !important;
-        flex-wrap: wrap !important; 
-        column-gap: 12px !important;      
-        row-gap: 12px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        float: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        height: auto !important; 
-        min-height: 0 !important;
-        max-height: none !important;
-        
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
+   /* ==========================================================================
+   5. METRICS INTERFACES MATRIX GRID (.metrics-grid-aside) - MOBILE
+   ========================================================================== */
+.metrics-grid-aside {
+    display: flex !important;
+    flex-wrap: wrap !important; 
+    column-gap: 12px !important;      
+    row-gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important; 
+    min-height: 0 !important;
+    max-height: none !important;
+}
 
-    /* 2. BASE CARD STYLE DEFAULTS
-       Enforces identical heights across the board while ensuring internal spacing calculations 
-       don't blow out past your assigned widths.
-    */
-    .metric-data-card,
-    .metric-data-card-1,
-    .metric-data-card-2,
-    .metric-data-card-3 {
-        background-color: #EBF1F1 !important;
-        padding: 24px 16px !important;
-        border-radius: 0px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: flex-start !important;
-        
-        /* Flex Alignment Requirements */
-        flex-grow: 0 !important;   /* Stops the boxes from growing automatically */
-        flex-shrink: 0 !important; /* Stops the boxes from squeezing inward */
-        box-sizing: border-box !important; /* Critical: keeps padding inside your width limits */
-        height: 110px !important;  /* Forces every single card to share the exact same height */
-    }
+/* 2. BASE CARD STYLE DEFAULTS */
+.metric-data-card,
+.metric-data-card-1,
+.metric-data-card-2,
+.metric-data-card-3 {
+    background-color: #EBF1F1 !important;
+    padding: 16px 12px !important; /* Slightly snugger padding for small screens */
+    border-radius: 0px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    
+    flex-grow: 0 !important;
+    flex-shrink: 1 !important; /* 🎯 Allow shrinking if necessary on tiny screens */
+    min-width: 0 !important;    
+    box-sizing: border-box !important;
+    min-height: 110px !important; 
+    height: auto !important;
+}
 
-    .metric-data-card {
-        width: calc(53% - 6px) !important; 
-    }
-    .metric-data-card-1 {
-        width: calc(47% - 6px) !important; 
-    }
+/* ROW 1 */
+.metric-data-card {
+    width: calc(53% - 6px) !important; 
+}
+.metric-data-card-1 {
+    width: calc(47% - 6px) !important; 
+}
 
-    /* ROW 2: Adjust these two completely independently from the row above! */
-    .metric-data-card-2 {
-        width: calc(61% - 6px) !important; 
-    }
-    .metric-data-card-3 {
-        width: calc(39% - 6px) !important; 
-    }
+/* ROW 2 */
+.metric-data-card-2 {
+    width: calc(58% - 6px) !important; /* Adjusted slightly to give card-3 more breathing room */
+}
+.metric-data-card-3 {
+    width: calc(42% - 6px) !important; 
+}
 
+/* --- TYPOGRAPHY STABILITY OVERRIDES --- */
+.metric-num-display {
+    font-size: 32px !important; /* Scaled down slightly to fit 320px screens */
+    font-weight: 800 !important;
+    color: #0E383A !important;
+    line-height: 1 !important;
+    margin: 0 0 6px 0 !important;
+    display: block !important;
+}
 
-    /* --- TYPOGRAPHY STABILITY OVERRIDES --- */
-    .metric-num-display {
-        font-size: 36px !important;
-        font-weight: 800 !important;
-        color: #0E383A !important;
-        line-height: 1 !important;
-        margin: 0 0 8px 0 !important;
-        display: block !important;
-    }
-
-    .metric-label-display {
-        font-size: 14px !important;
-        font-weight: 500 !important;
-        color: #000000 !important;
-        line-height: 1.2 !important;
-        display: block !important;
-        white-space: nowrap !important; /* Keeps the labels cleanly on one line */
-    }
+.metric-label-display {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #000000 !important;
+    line-height: 1.2 !important;
+    display: block !important;
+    white-space: normal !important; /* 🎯 FIX: Allows multi-line wrap on narrow screens */
+    word-break: break-word !important; /* 🎯 FIX: Prevents overflow outside card bounds */
+}
 
     /* ==========================================================================
    MOBILE UI RESPONSIVENESS: FOUNDATION SECTION (TEAM DESIGN STYLE MAPPING)
@@ -3303,7 +3398,7 @@ body.lightbox-open {
 .btn-project-link {
     display: inline-block !important;
     width: auto !important;
-    padding: 12px 24px !important;
+    padding: 12px 28px !important;
     font-size: 14px !important;
     border-radius: 0px !important;
     background-color: #1E3E3B !important;
@@ -3414,8 +3509,6 @@ FAQ SECTION (MOBILE & RESPONSIVE)
     background-color: #BCD2D3 !important; 
     padding-top: 40px !important;
     padding-bottom: 40px !important;
-    padding-left: 22px;
-    padding-right: 22px;
     width: 100% !important;
     box-sizing: border-box !important;
 }
@@ -3466,7 +3559,7 @@ FAQ SECTION (MOBILE & RESPONSIVE)
 
 .faq-question-text {
     font-size: 14px !important;
-    font-weight: 150px !important;
+    font-weight: 600 !important;
     color: #101010 !important;
     line-height: 1.2 !important;
 }
@@ -3660,7 +3753,7 @@ FAQ SECTION (MOBILE & RESPONSIVE)
     font-size: 13px !important;
     font-weight: 800 !important;
     letter-spacing: 0.05em !important;
-    padding: 16px 32px !important;
+    padding: 16px 28px !important;
     text-decoration: none !important;
     text-transform: uppercase !important;
     transition: background-color 0.2s ease, transform 0.2s ease !important;
@@ -3676,11 +3769,7 @@ FAQ SECTION (MOBILE & RESPONSIVE)
 /* ==========================================================================
    FOOTER SECTION MOBILE STYLES
    ========================================================================== */
-/* ==========================================================================
-   FOOTER SECTION STYLES
-   ========================================================================== */
 
-/* Fixed: Added missing dot (.) before class name */
 .site-footer-wrapper {
     background-color: #123D3F !important;
     color: rgba(255, 255, 255, 0.75) !important;
@@ -3799,6 +3888,166 @@ FAQ SECTION (MOBILE & RESPONSIVE)
     }
 }
 
+/* ==========================================================================
+   MOBILE RESPONSIVE STYLES (PROJECTS BODY)
+   ========================================================================== */
+
+  /* Lock Viewport Boundary */
+    html, body {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Container Overrides & Margins */
+    .portfolio-subpage-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-top: 80px !important; 
+        padding-bottom: 60px !important;
+    }
+
+    .site-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box !important;
+    }
+
+   
+    .portfolio-intro-deck {
+        width: 100% !important;
+        padding-top: 30px !important; 
+        padding-bottom: 20px !important;
+        text-align: center !important;
+    }
+
+    .portfolio-master-title {
+        display: block !important;
+        visibility: visible !important;
+        font-size: 30px !important;
+        font-weight: 700 !important;
+        color: #111111 !important;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+        text-align: center !important;
+    }
+
+    .portfolio-header-lead {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+        color: #747272 !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
+    /* Project Spec Header */
+    .project-spec-showcase {
+        width: 100% !important;
+        padding-top: 10px !important;
+    }
+
+    .project-spec-header {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        margin: 0 0 24px 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .spec-meta-left,
+    .spec-meta-right {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .spec-tag {
+        font-size: 14px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .spec-title {
+        font-size: 26px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .spec-logistics {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+
+    .meta-item {
+        font-size: 13px !important;
+    }
+
+    /* Toggle Buttons */
+    .media-toggle-wrapper {
+        display: flex !important;
+        gap: 12px !important;
+        margin: 14px 0 0 0 !important;
+    }
+
+    .btn-toggle-tab {
+        padding: 8px 20px !important;
+        font-size: 14px !important;
+    }
+
+    /* Description Text */
+    .spec-description-text {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        margin-top: 20px !important;
+        text-align: left !important;
+        color: #000 !important;
+    }
+
+    /* Single Column Media Grid */
+    .project-media-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        width: 100% !important;
+        margin: 0 0 32px 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .project-media-card {
+        width: 100% !important;
+        aspect-ratio: 388 / 250 !important;
+        overflow: hidden !important;
+    }
+
+    .project-media-card img,
+    .project-media-card video {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    /* Action / Load More Button */
+    .gallery-action-wrapper {
+        width: 100% !important;
+        padding: 0 !important;
+        margin-top: 24px !important;
+    }
+
+    .btn-gallery-load {
+        width: 100% !important;
+        padding: 16px 0 !important;
+        font-size: 15px !important;
+        text-align: center !important;
+    }
 
 
 }
