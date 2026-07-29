@@ -2529,7 +2529,7 @@ width: 100%;
 
     .hero-asset-frame {
         width: 100%;
-        height: 192px; /* Proportional smartphone crop height */
+        height: 192px; /* Proportional smart phone crop height */
         border-radius: 0px;
         overflow: hidden; /* Permits badge extension below the crop frame boundary */
     }
@@ -3316,7 +3316,7 @@ width: 100%;
     max-width: 100% !important;
     overflow: hidden !important; /* Clips card 2 sideways */
     position: relative !important;
-    touch-action: pan-y !important; /* Allows vertical scrolling while enabling side swipe */
+    touch-action: pan-x pan-y !important; 
 }
 
 .projects-slider-track {
