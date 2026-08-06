@@ -136,12 +136,12 @@ body {
    4. LOCKED LAYOUT CONTAINER SPECIFICATIONS (1440px Canvas / 1200px Content)
    ========================================================================== */
 .site-container {
-    width: 1440px;
+    width: 100%;
     max-width: 1440px;
     margin-right: auto;
     margin-left: auto;
-    padding-right: 120px; /* Precise Right Alignment Guideline */
-    padding-left: 120px;  /* Precise Left Alignment Guideline */
+    padding-right: min(120px, 5vw); /* Dynamic Fluid Padding */
+    padding-left: min(120px, 5vw);
 }
 
 /* ==========================================================================
@@ -273,14 +273,14 @@ body {
     width: 100%; /* Fully spans the 1200px internal grid container bounds */
     height: 548px;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 0px;
 }
 
 .hero-main-display {
     width: 100%;
     height: 548px;        
     object-fit: cover;    /* 🌟 CRUCIAL: This prevents the image from looking squished */
-    border-radius: 20px;
+    border-radius: 0px;
     display: block;
     object-position: center 70%;
     transition: transform 0.4s ease;
@@ -379,7 +379,7 @@ body {
     grid-template-columns: 1.35fr 1fr;
     gap: 22px;
     align-items: start;
-    width: 1200px;
+    width: 100% !important;
     height: 347px;
     position: relative;
 }
@@ -388,13 +388,15 @@ body {
 .concept-feature-card {
     background-color: var(--clr-mint-green);
     border-radius: 0px;
-    padding: 25px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 24px;
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 24px;
     min-height: 347px;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
     
     /* 🎬 FALLBACK BASELINE STATE */
     opacity: 0;
@@ -403,21 +405,23 @@ body {
     /* 🎬 HARDWARE ACCELERATED MOTION TIMELINE */
     animation: sectionCardReveal var(--motion-duration-long) var(--ease-premium-spring) forwards;
     animation-timeline: --aboutTimeline;
-    animation-range: entry 5% cover 30%; /* Bulletproof range mapping across browsers */
+    animation-range: entry 5% cover 30%;
 }
 
 .concept-image-frame {
-    width: auto;
+    width: 45%;
+    max-width: 311px;
     height: 297px;
     overflow: hidden;
     background: transparent;
     margin: 0 !important;
     clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
+    flex-shrink: 0;
 }
 
 .concept-display-img {
-    width: 311px;
-    height: 297px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.4s ease;
@@ -431,26 +435,28 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1;
+    min-width: 0;
 }
 
 .concept-card-title {
     color: var(--clr-dark-heading);
-    font-size: 20px;
+    font-size: clamp(18px, 1.8vw, 20px);
     font-weight: 650;
     line-height: 1.25;
     letter-spacing: -0.01em;
-    margin-bottom: 17px;
-    margin-top: -9px;
+    margin-bottom: 16px;
     display: flex;
     flex-direction: column;
+    word-break: break-word;
 }
 
 .concept-card-body {
     color: #000000;
-    font-size: 20px;
-    line-height: auto;
+    font-size: clamp(14px, 1.4vw, 18px);
+    line-height: 1.4;
     font-weight: 400;
-    margin-bottom: 52px;
+    margin-bottom: 24px;
 }
 
 /* Internal Card Action Link */
@@ -462,13 +468,16 @@ body {
     height: 48px;
     border-radius: 0px;
     font-weight: 650;
-    font-size: 20px;
+    font-size: 18px;
     align-self: flex-start;
     transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 .btn-secondary-cta:hover {
-    background-color: #0d2f2f;
+    background-color: var(--clr-mint-accent);
 }
 
 /* Right Panel Metric Grid Assembly with Motion Link */
@@ -2208,7 +2217,7 @@ body.lightbox-open {
     transform: scale(1);
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 1200px) {
     .lightbox-content {
         max-height: 60vh;
         padding: 0 10px;
@@ -2388,7 +2397,7 @@ width: 100%;
         height: calc(100vh - 64px);
         background-color: var(--clr-teal-bg);
         z-index: 999;
-        padding: 32px 24px 56px 24px; /* Generous bottom spacing for phone safety zones */
+        padding: 32px 24px 110px 24px; /* Generous bottom spacing for phone safety zones */
         box-sizing: border-box;
     }
 
@@ -2763,7 +2772,7 @@ width: 100%;
 .metric-data-card-2,
 .metric-data-card-3 {
     background-color: #EBF1F1 !important;
-    padding: 16px 12px !important; /* Slightly snugger padding for small screens */
+    padding: 16px 21px !important; 
     border-radius: 0px !important;
     display: flex !important;
     flex-direction: column !important;
