@@ -380,7 +380,7 @@ body {
     gap: 22px;
     align-items: start;
     width: 100% !important;
-    height: 347px;
+    height: 100%;
     position: relative;
 }
 
@@ -409,7 +409,7 @@ body {
 }
 
 .concept-image-frame {
-    width: 45%;
+    width: 100%;
     max-width: 311px;
     height: 297px;
     overflow: hidden;
@@ -486,8 +486,9 @@ body {
     flex-wrap: wrap;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 22px 22px;
-    width: 533px;
+    row-gap:  22px;
+    column-gap:  22px;
+    width: 100%;
     height: 347px;
 }
 
@@ -2536,12 +2537,23 @@ width: 100%;
         width: 100%;
     }
 
+   .hero-asset-frame {
+    position: relative;
+    width: 100%;
+    height: 25vh; /* Fluid percentage of screen height */
+    min-height: 240px; /* Floor limit for tiny devices */
+    max-height: 280px; /* Ceiling limit to keep hero content visible */
+    border-radius: 0px;
+    overflow: hidden;
+}
+
+/* IPAD & PORTRAIT TABLETS (601px to 1024px) */
+@media (601px <= width <= 1200px) {
     .hero-asset-frame {
-        width: 100%;
-        height: 192px; /* Proportional smart phone crop height */
-        border-radius: 0px;
-        overflow: hidden; /* Permits badge extension below the crop frame boundary */
+        min-height: 420px; /* Prevents frame from looking stubby on iPad */
+        max-height: 500px;
     }
+}
 
     .hero-main-display {
         width: 100%;
@@ -2564,9 +2576,9 @@ width: 100%;
         
         background-color: var(--clr-mint-accent);
         width: calc(100% - 72px); /* Uniform inner side margins inside the container bounds */
-        max-width: 186px;
-        height: 54px;
-        padding: 0 24px;
+        max-width: 196px;
+        height: 64px;
+        padding: 0 34px;
         
         display: flex;
         align-items: center;
@@ -2611,141 +2623,152 @@ width: 100%;
 
   
 
-    /* 
-    ==========================================================================
-    1. SECTION VIEWPORT CONTAINER RESET 
-    ==========================================================================
-    */
-    .about-viewport-section {
-        background-color: #FFFFFF !important;
-        padding: 40px 0 !important;
-        height: auto !important; /* Prevents text or cards from spilling out */
-        overflow: visible !important;
-        display: block !important;
-    }
+  /* 
+==========================================================================
+1. SECTION VIEWPORT CONTAINER RESET 
+==========================================================================
+*/
+.about-viewport-section {
+    background-color: #FFFFFF !important;
+    padding: 40px 0 !important;
+    height: auto !important; /* Fixed: allows height to expand with content naturally */
+    overflow: visible !important;
+    display: block !important;
+}
 
-    /* Locks layout securely within your preferred 390px mobile canvas bounds */
-    .about-viewport-section .site-container {
-        width: 100% !important;
-        max-width: 390px !important;
-        padding-left: 22px !important; /* Your signature canvas margins */
-        padding-right: 22px !important;
-        margin: 0 auto !important;
-        box-sizing: border-box !important;
-    }
+/* Locks layout securely within your preferred canvas bounds */
+.about-viewport-section .site-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    float: none !important;
+    position: relative !important;
+}
 
-    /* 2. HEADER TYPOGRAPHY CONFIGURATION */
-    .about-section-header {
-        text-align: center !important;
-        margin-bottom: 32px !important;
-        width: 100% !important;
-        float: none !important;
-        position: relative !important;
-    }
+/* 2. HEADER TYPOGRAPHY CONFIGURATION */
+.about-section-header {
+    text-align: center !important;
+    margin-bottom: 32px !important;
+    width: 100% !important;
+    float: none !important;
+    position: relative !important;
+}
 
-    .about-main-title {
-        font-size: 28px !important;
-        font-weight: 700 !important;
-        color: #000000 !important;
-        margin: 0 0 12px 0 !important;
-    }
+.about-main-title {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    margin: 0 0 12px 0 !important;
+    width: 100% !important;
+}
 
-    .about-header-lead {
-        font-size: 14px !important;
-        line-height: 1.5 !important;
-        color: #7A7A7A !important;
-        margin: 0 !important;
-        padding: 0 8px !important;
-    }
+.about-header-lead {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #7A7A7A !important;
+    margin: 0 !important;
+    padding: 0 8px !important;
+}
 
-    /* Strips desktop formatting to let sentences flow fluidly on mobile screens */
-    .about-header-lead br,
-    .concept-card-title br,
-    .concept-card-body br {
-        display: none !important;
-    }
+/* Strips desktop formatting to let sentences flow fluidly on mobile screens */
+.about-header-lead br,
+.concept-card-title br,
+.concept-card-body br {
+    display: none !important;
+}
 
-    /* 3. BENTO RESET: Standardizes layout downward */
-    .about-bento-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 4px !important; 
-        width: 100% !important;
-        height:850px;
-        float: none !important;
-        position: relative !important;
-        padding-bottom: 15px;
-    }
+/* 3. BENTO RESET: Standardizes layout downward */
+.about-bento-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important; 
+    width: 100% !important;
+    height: auto !important;
+    float: none !important;
+    position: relative !important;
+    padding-bottom: 15px !important;
+}
 
-    /* 4. MASTER CARD COMPONENT (.concept-feature-card) */
-    .concept-feature-card {
-        background-color: #EBF1F1 !important; /* Pale design canvas background tint */
-        padding: 24px !important;
-        border-radius: 0px !important; /* Completely flat profile */
-        display: flex !important;
-        flex-direction: column !important; /* Vertically flows image -> typography -> button */
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        float: none !important;
-        position: relative !important;
-        margin: 0 0 8px 0 !important;
-        gap: 25px;
-    }
+/* 4. MASTER CARD COMPONENT (.concept-feature-card) */
+.concept-feature-card {
+    background-color: #EBF1F1 !important;
+    padding: 22px !important;
+    border-radius: 0px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important; /* Fixed: Forces all flex children to stretch edge-to-edge */
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    margin: 0 0 8px 0 !important;
+    gap: 20px !important;
+}
 
-    /* Image Wrapper Frame Container */
-    .concept-image-frame {
-       width: auto;
-       height: 297px;
-       overflow: hidden;
-       background: transparent;
-       clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px);
-    }
+/* Image Wrapper Frame Container */
+.concept-image-frame {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    /* height: auto !important; */
+    aspect-ratio: 4 / 3 !important; 
+    overflow: hidden !important;
+    background: transparent !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px) !important;
+}
 
-    /* 📐 D'NESTA SIGNATURE ASYMMETRIC PICTURE CLIP */
-    .concept-display-img {
-        width: 100% !important;
-        height: auto !important;
-        display: block !important;
-        object-fit: cover !important; /* Keeps whole picture aspect ratio perfectly intact without clipping */
-        
-    }
+/* 📐 D'NESTA SIGNATURE ASYMMETRIC PICTURE CLIP */
+.concept-display-img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+}
 
-    .concept-content-block {
-        width: 100% !important;
-        padding-top: -500px !important;
-        text-align: left !important;
-    }
+.concept-content-block {
+    width: 100% !important;
+    padding-top: 0 !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+}
 
-    .concept-card-title .title-row {
-        font-size: 22px !important;
-        font-weight: 700 !important;
-        line-height: 1.3 !important;
-        color: #000000 !important;
-        display: block !important;
-        margin: 0 0 16px 0 !important;
-    }
+.concept-card-title .title-row {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    color: #000000 !important;
+    display: block !important;
+    margin: 0 0 16px 0 !important;
+}
 
-    .concept-card-body {
-        font-size: 14px !important;
-        line-height: 1.5 !important;
-        color: #333333 !important;
-        margin: 0 0 24px 0 !important;
-    }
+.concept-card-body {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #333333 !important;
+    margin: 0 0 24px 0 !important;
+}
 
-    /* Flat Square Dark Pine Green CTA Button Link */
-    .concept-content-block .btn-secondary-cta {
-        display: inline-block !important;
-        background-color: #0E383A !important;
-        color: #FFFFFF !important;
-        font-size: 14px !important;
-        font-weight: 700 !important;
-        padding: 16px 28px !important;
-        text-decoration: none !important;
-        border-radius: 0px !important;
-        text-align: center !important;
-        width: max-content !important;
-    }
+/* Flat Square Dark Pine Green CTA Button Link */
+.concept-content-block .btn-secondary-cta {
+    display: inline-block !important;
+    background-color: #0E383A !important;
+    color: #FFFFFF !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 16px 28px !important;
+    text-decoration: none !important;
+    border-radius: 0px !important;
+    text-align: center !important;
+    width: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
 
    /* ==========================================================================
    5. METRICS INTERFACES MATRIX GRID (.metrics-grid-aside) - MOBILE
@@ -2839,7 +2862,7 @@ width: 100%;
 
     .foundation-viewport-section .site-container {
         width: 100% !important;
-        max-width: 390px !important;       
+        max-width: 100% !important;       
         padding-left: 22px !important;      
         padding-right: 22px !important;
         margin: 0 auto !important;          
@@ -3188,15 +3211,17 @@ width: 100%;
     }
 
     /* 4. DEFINE CRISP CARD WIDTHS RELATIVE TO MOBILE VIEWPORT */
-    .team-desktop-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 24px !important;
-        width: 100% !important;
-        max-width: 340px !important; /* Perfect standard sizing for phone displays */
-        margin: 0 auto !important;
-        padding: 0 !important;
-    }
+.team-desktop-grid {
+    display: grid !important;
+    /* Automatically creates as many 280px columns as fit, then stretches them proportionally */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 1200px !important; /* Removes 340px limit to allow iPad/Desktop width expansion */
+    margin: 0 auto !important;
+    padding: 0 22px !important;
+    box-sizing: border-box !important;
+}
 
     /* 5. PORTRAIT CARD DESIGN */
     .team-profile-card {
@@ -3341,7 +3366,7 @@ width: 100%;
     min-width: 100% !important;
     max-width: 100% !important;
     background-color: #FFFFFF !important;
-    padding: 20px !important;
+    padding: 22px !important;
     border-radius: 0px !important;
     box-sizing: border-box !important;
     display: flex !important;

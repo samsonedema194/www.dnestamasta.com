@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!sliderWindow || cards.length === 0 || dots.length === 0) return;
 
-    // 1. Listen for trackpad / touch swipe scroll events
+    // 1. Listen for track pad / touch swipe scroll events
     sliderWindow.addEventListener('scroll', () => {
         const cardWidth = sliderWindow.clientWidth;
         // Calculate index based on how far user has scrolled
