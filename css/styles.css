@@ -237,7 +237,7 @@ body {
 .hero-viewport-section {
     background-color: #FFFFFF;
     padding-top: 99px;
-    padding-bottom: 99px;
+    padding-bottom: 47px;
 }
 
 .hero-inner-layout {
@@ -373,18 +373,19 @@ body {
     max-width: 980px;
 }
 
-/* Bento Grid System Framework */
+/* ==========================================
+   Bento Grid System Framework
+   ========================================== */
 .about-bento-grid {
-    display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: 22px;
-    align-items: start;
+    display: grid !important;
+    grid-template-columns: 1.3fr 1fr !important;
+    gap: 22px !important;
+    align-items: stretch !important;
     width: 100% !important;
-    height: 100%;
-    position: relative;
+    position: relative !important;
 }
 
-/* Left Card Component with Hardware-Accelerated Motion Link */
+/* Left Feature Card Component */
 .concept-feature-card {
     background-color: var(--clr-mint-green);
     border-radius: 0px;
@@ -393,23 +394,20 @@ body {
     align-items: center;
     gap: 24px;
     min-height: 347px;
-    height: auto;
+    height: 100%;
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
     
-    /* 🎬 FALLBACK BASELINE STATE */
     opacity: 0;
     will-change: transform, opacity;
-    
-    /* 🎬 HARDWARE ACCELERATED MOTION TIMELINE */
     animation: sectionCardReveal var(--motion-duration-long) var(--ease-premium-spring) forwards;
     animation-timeline: --aboutTimeline;
     animation-range: entry 5% cover 30%;
 }
 
 .concept-image-frame {
-    width: 100%;
+    width: 45%;
     max-width: 311px;
     height: 297px;
     overflow: hidden;
@@ -459,7 +457,7 @@ body {
     margin-bottom: 24px;
 }
 
-/* Internal Card Action Link */
+
 .btn-secondary-cta {
     background-color: var(--clr-teal-bg);
     color: var(--clr-text-white);
@@ -480,104 +478,90 @@ body {
     background-color: var(--clr-mint-accent);
 }
 
-/* Right Panel Metric Grid Assembly with Motion Link */
+/* ==========================================
+   🎯 FIX: Right Metrics Grid Assembly (Pure CSS Grid)
+   ========================================== */
 .metrics-grid-aside {
-    display: flex;
-    flex-wrap: wrap;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    row-gap:  22px;
-    column-gap:  22px;
-    width: 100%;
-    height: 347px;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* Strict 2 equal fluid columns */
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 22px !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 347px;
 }
 
-/* Individual Metric Cards Staggered Entry Motion Hooks */
+/* 🎯 FIX: Universal Responsive Padding (Replaces fixed padding-right) */
+.metric-data-card,
+.metric-data-card-1,
+.metric-data-card-2,
+.metric-data-card-3 {
+    background-color: var(--clr-mint-green); 
+    border-radius: 0px;
+    padding: 20px !important; /* Fluid, even internal spacing */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important; /* Prevents text overflow breaking grid columns */
+}
+
+/* Motion links */
 .concept-feature-card,
 .metrics-grid-aside .metric-data-card,
 .metrics-grid-aside .metric-data-card-1,
 .metrics-grid-aside .metric-data-card-2,
 .metrics-grid-aside .metric-data-card-3 {
-    /* 🎬 FALLBACK BASELINE STATE */
     opacity: 0;
     will-change: transform, opacity;
-
-    /* 🎬 HARMONIZED SLIDE REVEAL WITH TIMING CONTROLS */
     animation: sideSlideReveal var(--motion-duration-long) var(--ease-premium-spring) forwards;
     animation-timeline: --aboutTimeline;
+    animation-range: entry 10% cover 80%;
 }
 
-/* Staggering window triggers perfectly aligned to look clean as you descend */
-.concept-feature-card { animation-range: entry 10% cover 80%; }
-.metrics-grid-aside .metric-data-card   { animation-range: entry 10% cover 80%; }
-.metrics-grid-aside .metric-data-card-1 { animation-range: entry 10% cover 80%; }
-.metrics-grid-aside .metric-data-card-2 { animation-range: entry 10% cover 80%; }
-.metrics-grid-aside .metric-data-card-3 { animation-range: entry 10% cover 80%; }
-
-.metric-data-card {
-    background-color: var(--clr-mint-green); 
-    border-radius: 0px;
-    padding-top: 6px;
-    padding-bottom: 16px ;
-    padding-left: 21px ;
-    padding-right: 137px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.metric-data-card-1 {
-    background-color: var(--clr-mint-green); 
-    border-radius: 0px;
-    padding-top: 26px;
-    padding-bottom: 26px ;
-    padding-left: 29px ;
-    padding-right: 111px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.metric-data-card-2 {
-    background-color: var(--clr-mint-green); 
-    border-radius: 0px;
-    padding-top: 26px;
-    padding-bottom: 26px ;
-    padding-left: 21px ;
-    padding-right: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.metric-data-card-3 {
-    background-color: var(--clr-mint-green); 
-    border-radius: 0px;
-    padding-top: 26px;
-    padding-bottom: 26px ;
-    padding-left: 29px ;
-    padding-right: 58px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+/* Scalable Typography */
 .metric-num-display {
     color: var(--clr-teal-bg);
-    font-size: 56px;
+    font-size: clamp(32px, 3.2vw, 56px); /* Shrinks gracefully as screen narrows */
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 1;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .metric-label-display {
     color: #222222;
-    font-size: 16px;
+    font-size: clamp(12px, 1.1vw, 16px);
     font-weight: 600;
     letter-spacing: -0.01em;
+    white-space: nowrap;
 }
 
+/* Mobile & Tablet Stacking Rules */
+@media screen and (max-width: 991px) {
+    .about-bento-grid {
+        grid-template-columns: 1fr !important; /* Stacks concept card on top of metrics */
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .metrics-grid-aside {
+        grid-template-columns: 1fr !important; /* Single column on small mobile devices */
+        grid-template-rows: auto !important;
+    }
+    
+    .concept-feature-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .concept-image-frame {
+        width: 100%;
+        max-width: 100%;
+    }
+}
 /* ==========================================================================
    8. FOUNDATION SECTION COMPONENT (DESKTOP SPECIFIC - 1440PX SYSTEM)
    ========================================================================== */
@@ -1025,8 +1009,15 @@ body {
 
 /* THE WINDOW CONTAINER (The viewport mask) */
 .projects-slider-window {
-    width: 100%;      /* Pins the mask to exactly the width of the 1200px container */
-    overflow: hidden; /* Cuts off any cards that slide past the right edge */
+    width: 100%;
+    overflow-x: auto; /* Changed from hidden to allow smooth programmatic scroll */
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+}
+
+.projects-slider-window::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in Chrome/Safari */
 }
 
 /* THE SLIDER TRACK TRAIN WITH ENTRANCE ANIMATION MAPPING */
@@ -1246,7 +1237,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 712px;
+    width: auto;
     
     /* Reveal Animation Hook */
     animation: sectionCardReveal var(--motion-duration-long) var(--ease-premium-spring) both;
@@ -1633,6 +1624,7 @@ body {
 .portfolio-subpage-wrapper {
     background-color: #FFFFFF;
     padding-bottom: 99px;
+    min-width: 100%;
 }
 
 .portfolio-intro-deck {
@@ -1666,7 +1658,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 1200px;
+    width: 100%;
     margin: 0 auto 48px auto;
 }
 
@@ -1750,7 +1742,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    width: 1200px;
+    width: 100%;
     margin: 0 auto 56px auto;
 }
 
@@ -2166,7 +2158,7 @@ body.lightbox-open {
     width: 100%;
     height: 100%;
     object-fit: cover; 
-    border-radius: 8px;
+    border-radius: 0px;
     background-color: #000000;
     aspect-ratio: 3 / 2;
     transition: transform 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
@@ -2218,7 +2210,69 @@ body.lightbox-open {
     transform: scale(1);
 }
 
+/* 🎯 Lightbox Stage Viewport */
+.lightbox-content {
+    position: relative !important;
+    overflow: hidden !important; /* Clips items outside the viewport during slide */
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* Base Wrapper Container */
+#lightbox-target-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+    touch-action: pan-y; /* Prevents vertical scroll conflicts */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Motion State Classes for Horizontal Slide */
+.slide-transition {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease-in-out !important;
+    will-change: transform, opacity;
+}
+
+.slide-out-left {
+    transform: translateX(-100%) !important;
+    opacity: 0 !important;
+}
+
+.slide-out-right {
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+}
+
+.slide-in-left {
+    transform: translateX(-100%) !important;
+    opacity: 0 !important;
+}
+
+.slide-in-right {
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+}
+
+.slide-active {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+}
+
+/* Hide navigation arrows on mobile if you want touch-only controls */
 @media screen and (max-width: 1200px) {
+    .lightbox-arrow {
+        display: none !important;
+    }
+
     .lightbox-content {
         max-height: 60vh;
         padding: 0 10px;
@@ -2453,7 +2507,17 @@ width: 100%;
 
     /* --- 3. RE-INJECTING CONTACT BUTTON ON DRAWER FOOTER BASELINE --- */
     /* We build a dedicated button wrapper inside the main-navigation block for mobile */
-    body.mobile-menu-active .main-navigation::after {
+
+    body.mobile-menu-active .header-action {
+        display: flex !important;
+        position: fixed;
+        bottom: 162px; /* Matches your drawer's padding bottom spacing */
+        left: 24px;
+        right: 24px;
+        z-index: 1000; /* Sits above main-navigation (z-index: 999) */
+    }
+
+    body.mobile-menu-active .header-action .btn-primary-cta {
         content: 'Contact Us';
         display: flex;
         align-items: center;
@@ -2469,9 +2533,18 @@ width: 100%;
         transition: transform 0.1s ease;
     }
     
-    body.mobile-menu-active .main-navigation::after:active {
+    body.mobile-menu-active .header-action .btn-primary-cta:active {
         transform: scale(0.98); /* Tactile press state feedback on mobile devices */
     }
+
+
+
+/* 2. POST-CLICK / FOCUS STATE (After the click is released or while active) */
+body.mobile-menu-active .header-action .btn-primary-cta:focus,
+body.mobile-menu-active .header-action .btn-primary-cta:visited {
+    background-color: var(#50ca8f);          /* Maintains or alters post-click tint */
+    outline: none;                                     /* Removes default mobile blue browser outline */
+}
 
     /* --- 4. HAMBURGER TO CLOSE ICON STRUCTURAL TRANSITION --- */
     body.mobile-menu-active .header-inner::after {
@@ -2757,7 +2830,7 @@ width: 100%;
 /* Flat Square Dark Pine Green CTA Button Link */
 .concept-content-block .btn-secondary-cta {
     display: inline-block !important;
-    background-color: #0E383A !important;
+    background-color: #154244 !important;
     color: #FFFFFF !important;
     font-size: 14px !important;
     font-weight: 700 !important;
@@ -2768,6 +2841,12 @@ width: 100%;
     width: auto !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+}
+
+/* ACTIVE STATE (The Moment You Click/Tap) */
+.concept-content-block .btn-secondary-cta:active {
+    background-color: #66DCA1 !important; /* Accent mint background on click */
+    transform: scale(0.98) !important;    /* Tactile press response */
 }
 
    /* ==========================================================================
@@ -3075,9 +3154,11 @@ width: 100%;
 
     /* 3. THE CARD MECHANICS (Perfect Mirror of your Desktop Logic) */
     .service-custom-card {
-        flex: 0 0 78% !important; /* Width is 78% of mobile viewport */
+        flex: 0 0 min(78%, 320px)!important; /* Width is 78% of mobile viewport 
+        */
+        max-width: 320px !important;
         scroll-snap-align: start !important;
-        padding: 32px 30px !important; /* Mobile-optimized card padding */
+        padding: 30px 30px !important; /* Mobile-optimized card padding */
         
         /* Keep your exact desktop aspect-ratio and clip-path */
         aspect-ratio: 1 / 1 !important; 
@@ -3359,6 +3440,7 @@ width: 100%;
     width: 100% !important;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
     will-change: transform;
+    
 }
 
 .project-display-card {
@@ -3371,7 +3453,7 @@ width: 100%;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 20px !important;
+    gap: 22px !important;
 }
 
 /* CARD INNER ELEMENTS */
@@ -3435,9 +3517,14 @@ width: 100%;
     padding: 12px 28px !important;
     font-size: 14px !important;
     border-radius: 0px !important;
-    background-color: #1E3E3B !important;
+    background-color: #154244 !important;
     color: #FFFFFF !important;
     text-decoration: none !important;
+}
+
+.btn-project-link:active {
+    background-color: #66DCA1 !important;
+    transform: scale(0.98) !important;
 }
 
 /* NAVIGATION & DOTS */
@@ -3706,8 +3793,13 @@ FAQ SECTION (MOBILE & RESPONSIVE)
     color: #FFFFFF !important;
     padding: 16px 28px !important;
     text-decoration: none !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: 600 !important;
+}
+
+.btn-faq-billboard-cta:active {
+    background-color: #3bc285 !important;
+    transform: scale(0.98) !important; 
 }
 
 /* ==========================================================================
@@ -3795,9 +3887,10 @@ FAQ SECTION (MOBILE & RESPONSIVE)
     box-sizing: border-box !important;
 }
 
-.btn-banner-mail-cta:hover {
-    background-color: #F0F0F0 !important;
-    transform: translateY(-1px) !important;
+.btn-banner-mail-cta:active {
+    background-color: #66DCA1 !important;
+    transform: scale(0.98) !important;
+    color: #FFFFFF !important;
 }
 
 /* ==========================================================================
@@ -4048,7 +4141,7 @@ FAQ SECTION (MOBILE & RESPONSIVE)
     /* Single Column Media Grid */
     .project-media-grid {
         display: grid !important;
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
         gap: 16px !important;
         width: 100% !important;
         margin: 0 0 32px 0 !important;
@@ -4060,6 +4153,8 @@ FAQ SECTION (MOBILE & RESPONSIVE)
         width: 100% !important;
         aspect-ratio: 388 / 250 !important;
         overflow: hidden !important;
+        box-sizing: border-box !important;
+        border-radius: 0px !important;
     }
 
     .project-media-card img,
@@ -4067,6 +4162,8 @@ FAQ SECTION (MOBILE & RESPONSIVE)
         width: 100% !important;
         height: 100% !important;
         object-fit: cover !important;
+        border-radius: 0px !important; /* Clears any image/video border-radius */
+       -webkit-border-radius: 0px !important;
     }
 
     /* Action / Load More Button */

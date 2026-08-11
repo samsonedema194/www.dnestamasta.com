@@ -111,10 +111,13 @@
                         <img src="Assets/Icon/Prev.svg" alt="prev-btn">
                     </button>
                     
-                    <div class="lightbox-content">
-                        <img id="lightbox-target-img" src="" alt="Expanded Project Image View" style="display: none;">
-                        <video id="lightbox-target-video" controls autoplay src="" style="display: none;"></video>
-                    </div>
+ <!-- 🎯 Dynamic Media Stage Wrapper -->
+<div class="lightbox-content">
+    <div id="lightbox-target-wrapper" class="slide-active">
+        <img id="lightbox-target-img" src="" alt="Expanded Project Image View" style="display: none;">
+        <video id="lightbox-target-video" controls autoplay src="" style="display: none;"></video>
+    </div>
+</div>
                     
                     <button class="lightbox-arrow arrow-right" aria-label="Next Image">
                         <img src="Assets/Icon/next.svg" alt="next-btn">

@@ -472,12 +472,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.addEventListener("keydown", (e) => {
-        if (!lightbox || !lightbox.classList.contains("is-visible")) return;
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowLeft" && currentIndex > 0 && leftArrow) leftArrow.click();
-        if (e.key === "ArrowRight" && currentIndex < visibleCards.length - 1 && rightArrow) rightArrow.click();
-    });
+    // document.addEventListener("keydown", (e) => {
+    //     if (!lightbox || !lightbox.classList.contains("is-visible")) return;
+    //     if (e.key === "Escape") closeLightbox();
+    //     if (e.key === "ArrowLeft" && currentIndex > 0 && leftArrow) leftArrow.click();
+    //     if (e.key === "ArrowRight" && currentIndex < visibleCards.length - 1 && rightArrow) rightArrow.click();
+    // });
 });
 
 // HORIZONTAL CAROUSEL DOT INDICATOR TRACKING
@@ -588,5 +588,188 @@ document.addEventListener('DOMContentLoaded', () => {
                 trigger.setAttribute('aria-expanded', 'true');
             }
         });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Target the entire overlay modal so trackpad gestures register anywhere on screen
+    const lightboxOverlay = document.querySelector('.lightbox-overlay') || document.getElementById('lightbox-modal');
+    const targetWrapper = document.getElementById('lightbox-target-wrapper');
+    const leftArrow = document.querySelector('.arrow-left');
+    const rightArrow = document.querySelector('.arrow-right');
+
+    if (!lightboxOverlay || !targetWrapper) return;
+
+    // Prevent default browser image/video drag interfereing with pointer gestures
+    lightboxOverlay.querySelectorAll('img, video').forEach(media => {
+        media.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+
+    let isAnimating = false;
+
+    // Slide animation handler
+    function triggerSlide(direction) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        targetWrapper.classList.add('slide-transition');
+        const exitClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
+        targetWrapper.classList.add(exitClass);
+
+        setTimeout(() => {
+            if (direction === 'next' && rightArrow) {
+                rightArrow.click();
+            } else if (direction === 'prev' && leftArrow) {
+                leftArrow.click();
+            }
+
+            targetWrapper.classList.remove('slide-transition', 'slide-out-left', 'slide-out-right', 'slide-active');
+            const enterClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
+            targetWrapper.classList.add(enterClass);
+
+            void targetWrapper.offsetWidth; // Force DOM reflow
+
+            targetWrapper.classList.add('slide-transition');
+            targetWrapper.classList.remove('slide-in-right', 'slide-in-left');
+            targetWrapper.classList.add('slide-active');
+
+            setTimeout(() => {
+                targetWrapper.classList.remove('slide-transition');
+                isAnimating = false;
+            }, 300);
+        }, 300);
+    }
+
+    // 1. TRACKPAD TWO-FINGER HORIZONTAL SWIPE
+    let isCoolingDown = false;
+
+    lightboxOverlay.addEventListener('wheel', (e) => {
+        // Detect horizontal trackpad scrolling (deltaX) or Shift + vertical scroll
+        const deltaX = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+
+        if (Math.abs(deltaX) > 15 && !isCoolingDown) {
+            e.preventDefault(); // Prevents background page from scrolling
+            isCoolingDown = true;
+
+            if (deltaX > 0) {
+                triggerSlide('next');
+            } else {
+                triggerSlide('prev');
+            }
+
+            setTimeout(() => { isCoolingDown = false; }, 500);
+        }
+    }, { passive: false }); // passive: false allows e.preventDefault() to work
+
+    // 2. TRACKPAD CLICK & DRAG / MOBILE TOUCH
+    let startX = 0;
+    let endX = 0;
+    let isDragging = false;
+    const minSwipeDistance = 30;
+
+    lightboxOverlay.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+    });
+
+    lightboxOverlay.addEventListener('pointerup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        endX = e.clientX;
+
+        const distance = endX - startX;
+        if (distance < -minSwipeDistance) {
+            triggerSlide('next');
+        } else if (distance > minSwipeDistance) {
+            triggerSlide('prev');
+        }
+    });
+
+    lightboxOverlay.addEventListener('pointerleave', () => {
+        isDragging = false;
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const windowFrame = document.querySelector('.projects-slider-window');
+    const track = document.querySelector('.projects-slider-track');
+    const cards = document.querySelectorAll('.project-display-card');
+    const prevBtn = document.querySelector('.slider-nav-btn.prev-btn');
+    const nextBtn = document.querySelector('.slider-nav-btn.next-btn');
+
+    if (!windowFrame || !track || cards.length === 0 || !prevBtn || !nextBtn) return;
+
+    // Width of one card + grid gap
+    const getScrollStep = () => {
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseInt(window.getComputedStyle(track).gap) || 32;
+        return cardWidth + gap;
+    };
+
+    const updateButtonStates = () => {
+        const maxScrollLeft = windowFrame.scrollWidth - windowFrame.clientWidth;
+        
+        // Disable state checks with a small 5px tolerance threshold
+        prevBtn.disabled = windowFrame.scrollLeft <= 5;
+        nextBtn.disabled = windowFrame.scrollLeft >= maxScrollLeft - 5;
+    };
+
+    nextBtn.addEventListener('click', () => {
+        windowFrame.scrollBy({
+            left: getScrollStep(),
+            behavior: 'smooth'
+        });
+    });
+
+    prevBtn.addEventListener('click', () => {
+        windowFrame.scrollBy({
+            left: -getScrollStep(),
+            behavior: 'smooth'
+        });
+    });
+
+    // Sync button states when user scrolls or resizes
+    windowFrame.addEventListener('scroll', updateButtonStates);
+    window.addEventListener('resize', updateButtonStates);
+
+    // Initial button check
+    updateButtonStates();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const mainNav = document.querySelector('.main-navigation');
+
+    if (!mainNav) return;
+
+    mainNav.addEventListener('click', (e) => {
+        // Only run when mobile menu drawer is open
+        if (!document.body.classList.contains('mobile-menu-active')) return;
+
+        // Fetch computed dimensions of the ::after pseudo-element
+        const afterStyle = window.getComputedStyle(mainNav, '::after');
+        if (afterStyle.display === 'none' || !afterStyle.height) return;
+
+        const navRect = mainNav.getBoundingClientRect();
+        const afterHeight = parseFloat(afterStyle.height) || 54;
+
+        // Calculate the exact target zone of the ::after button at the base of the nav
+        const buttonTop = navRect.bottom - afterHeight;
+        const buttonBottom = navRect.bottom;
+        const buttonLeft = navRect.left;
+        const buttonRight = navRect.right;
+
+        // Check if user tap/click coordinates fall within the button's boundary
+        const clickedX = e.clientX;
+        const clickedY = e.clientY;
+
+        if (
+            clickedY >= buttonTop &&
+            clickedY <= buttonBottom &&
+            clickedX >= buttonLeft &&
+            clickedX <= buttonRight
+        ) {
+            window.open('https://linktr.ee/dnestmastaconstruction', '_blank');
+        }
     });
 });
