@@ -3161,7 +3161,7 @@ body.mobile-menu-active .header-action .btn-primary-cta:visited {
         padding: 30px 30px !important; /* Mobile-optimized card padding */
         
         /* Keep your exact desktop aspect-ratio and clip-path */
-        aspect-ratio: 1 / 1 !important; 
+        aspect-ratio: auto !important; 
         clip-path: polygon(60px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 60px) 100%, 0% 100%, 0% 40px) !important;
         
         /* Clear desktop hover transforms */
