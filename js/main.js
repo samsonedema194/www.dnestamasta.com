@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Target the entire overlay modal so trackpad gestures register anywhere on screen
+    // Target the entire overlay modal so track pad gestures register anywhere on screen
     const lightboxOverlay = document.querySelector('.lightbox-overlay') || document.getElementById('lightbox-modal');
     const targetWrapper = document.getElementById('lightbox-target-wrapper');
     const leftArrow = document.querySelector('.arrow-left');
@@ -600,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!lightboxOverlay || !targetWrapper) return;
 
-    // Prevent default browser image/video drag interfereing with pointer gestures
+    // Prevent default browser image/video drag interfering with pointer gestures
     lightboxOverlay.querySelectorAll('img, video').forEach(media => {
         media.addEventListener('dragstart', (e) => e.preventDefault());
     });
@@ -644,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isCoolingDown = false;
 
     lightboxOverlay.addEventListener('wheel', (e) => {
-        // Detect horizontal trackpad scrolling (deltaX) or Shift + vertical scroll
+        // Detect horizontal track pad scrolling (deltaX) or Shift + vertical scroll
         const deltaX = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
 
         if (Math.abs(deltaX) > 15 && !isCoolingDown) {

@@ -150,7 +150,7 @@ body {
 .site-header {
     background-color: var(--clr-teal-bg);
     width: 100%;
-    height: 82px; /* Fixed premium desktop rhythm height */
+    height:90px; 
     display: flex;
     align-items: center;
     position: fixed;
@@ -524,7 +524,7 @@ body {
 /* Scalable Typography */
 .metric-num-display {
     color: var(--clr-teal-bg);
-    font-size: clamp(32px, 3.2vw, 56px); /* Shrinks gracefully as screen narrows */
+    font-size: clamp(32px, 3.2vw, 56px); /* Shrinks gracefully as screen narrow */
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 1;
@@ -1411,7 +1411,7 @@ body {
 
 /* High Contrast CTA Interface Trigger Button */
 .btn-faq-billboard-cta {
-    background-color: #154244;
+    background-color: var(--clr-teal-bg);
     color: #FFFFFF;
     text-decoration: none;
     font-size: 20px;
@@ -1424,7 +1424,7 @@ body {
 }
 
 .btn-faq-billboard-cta:hover {
-    background-color: #0F2D2D;
+    background-color: var(--clr-mint-accent);
 }
 
 /* ==========================================================================
