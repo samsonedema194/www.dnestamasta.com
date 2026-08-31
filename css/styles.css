@@ -3128,7 +3128,7 @@ body.mobile-menu-active .header-action .btn-primary-cta:visited {
         
         padding-left: 22px !important;
         padding-right: 0 !important;
-        scroll-padding-left: 22px !important;
+        scroll-padding: 22px !important;
         
         gap: 16px !important;
         width: 100% !important;
