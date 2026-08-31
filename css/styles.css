@@ -3127,8 +3127,8 @@ body.mobile-menu-active .header-action .btn-primary-cta:visited {
         scroll-snap-type: x mandatory !important;
         
         padding-left: 22px !important;
-        padding-right: 0 !important;
-        scroll-padding: 22px !important;
+        padding-right: 0px !important;
+        scroll-padding-left: 22px !important;
         
         gap: 16px !important;
         width: 100% !important;
@@ -3167,7 +3167,13 @@ body.mobile-menu-active .header-action .btn-primary-cta:visited {
         /* Clear desktop hover transforms */
         transform: none !important;
         margin: 0 !important;
+        margin-bottom: 0 !important;
+        margin-left: 0 !important;
     }
+
+    .services-desktop-grid .service-custom-card:last-child {
+    margin-right: 22px !important;
+   }
 
     /* When expanded by your JS, break the aspect-ratio exactly like on desktop */
     .service-custom-card.is-expanded-card {
