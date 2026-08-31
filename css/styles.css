@@ -3167,13 +3167,16 @@ body.mobile-menu-active .header-action .btn-primary-cta:visited {
         /* Clear desktop hover transforms */
         transform: none !important;
         margin: 0 !important;
-        margin-bottom: 0 !important;
-        margin-left: 0 !important;
     }
 
-    .services-desktop-grid .service-custom-card:last-child {
-    margin-right: 22px !important;
-   }
+    .services-desktop-grid .scroll-spacer {
+        flex: 0 0 22px !important;
+        width: 22px !important;
+        min-width: 22px !important;
+        height: 1px !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
 
     /* When expanded by your JS, break the aspect-ratio exactly like on desktop */
     .service-custom-card.is-expanded-card {
